@@ -1,4 +1,4 @@
-const habilidades: string[] = ['Bash','Counter','Healing'];
+const habilidades: string[] = ['Bash', 'Counter', 'Healing'];
 
 interface Personaje {
     nombre: string;
@@ -10,10 +10,10 @@ interface Personaje {
 const fran: Personaje = {
     nombre: 'Fran',
     puntosDeVida: 100,
-    habilidades: ['Desarrollar','Ver buen cine']
+    habilidades: ['Desarrollar', 'Ver buen cine']
 }
 
 fran.puebloNatal = 'Alcalá';
 console.table(fran)
 
-export {};
+export { };

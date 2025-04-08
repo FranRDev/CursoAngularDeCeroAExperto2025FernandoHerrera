@@ -4,6 +4,6 @@ const estaVivo: boolean = true;
 
 puntosDeVida = 'FULL';
 
-console.log({nombre, puntosDeVida, estaVivo});
+console.log({ nombre, puntosDeVida, estaVivo });
 
-export {};
+export { };
