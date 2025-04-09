@@ -18,10 +18,12 @@ interface OpcionesCalculoImpuestos {
     productos: Producto[];
 }
 
-function calcularImpuestos({productos, impuestos}: OpcionesCalculoImpuestos): number[] {
+function calcularImpuestos(opciones: OpcionesCalculoImpuestos): [number, number] {
+    const { productos, impuestos } = opciones;
+
     let total = 0;
 
-    productos.forEach(({precio}) => {
+    productos.forEach(({ precio }) => {
         total += precio;
     });
 
