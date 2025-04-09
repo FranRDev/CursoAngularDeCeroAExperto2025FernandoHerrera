@@ -4,7 +4,8 @@ import './style.css';
 // import './temas/03-funciones';
 // import './temas/04-actividad-tipos';
 // import './temas/05-desectructuracion-basica';
-import './temas/06-desestructuracion-funciones';
+// import './temas/06-desestructuracion-funciones';
+import './temas/07-importar.exportar';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML = `Hola mundo`;

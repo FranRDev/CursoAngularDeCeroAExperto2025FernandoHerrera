@@ -1,24 +1,24 @@
-interface Producto {
+export interface Producto {
     descripcion: string;
     precio: number;
 }
 
-const telefono: Producto = {
-    descripcion: 'Nokia A1',
-    precio: 150.0
-}
+// const telefono: Producto = {
+//     descripcion: 'Nokia A1',
+//     precio: 150.0
+// }
 
-const tablet: Producto = {
-    descripcion: 'iPad Air',
-    precio: 250.0
-}
+// const tablet: Producto = {
+//     descripcion: 'iPad Air',
+//     precio: 250.0
+// }
 
-interface OpcionesCalculoImpuestos {
+export interface OpcionesCalculoImpuestos {
     impuestos: number;
     productos: Producto[];
 }
 
-function calcularImpuestos(opciones: OpcionesCalculoImpuestos): [number, number] {
+export function calcularImpuestos(opciones: OpcionesCalculoImpuestos): [number, number] {
     const { productos, impuestos } = opciones;
 
     let total = 0;
@@ -30,15 +30,13 @@ function calcularImpuestos(opciones: OpcionesCalculoImpuestos): [number, number]
     return [total, total * impuestos];
 }
 
-const carritoCompra = [telefono, tablet];
-const impuestos = 0.15;
+// const carritoCompra = [telefono, tablet];
+// const impuestos = 0.15;
 
-const [total, totalImpuestos] = calcularImpuestos({
-    productos: carritoCompra,
-    impuestos
-});
+// const [total, totalImpuestos] = calcularImpuestos({
+//     productos: carritoCompra,
+//     impuestos
+// });
 
-console.log('Total', total);
-console.log('Impuestos', totalImpuestos);
-
-export { };
+// console.log('Total', total);
+// console.log('Impuestos', totalImpuestos);
