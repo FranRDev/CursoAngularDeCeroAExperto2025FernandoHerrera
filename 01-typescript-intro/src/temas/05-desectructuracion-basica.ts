@@ -24,8 +24,12 @@ const cancion = 'Nueva canción';
 const { cancion: otraCancion, duracionCancion: duracion, detalles } = reproductorAudio
 const { autor } = detalles;
 
-console.log('Canción: ', otraCancion);
-console.log('Duración: ', duracion);
-console.log('Autor: ', autor);
+// console.log('Canción: ', otraCancion);
+// console.log('Duración: ', duracion);
+// console.log('Autor: ', autor);
+
+const [, , trunks = 'No encontrado']: string[] = ['Goku', 'Vegeta'];
+
+console.log('Personaje 3: ', trunks);
 
 export { };
