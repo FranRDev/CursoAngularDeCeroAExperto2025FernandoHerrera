@@ -1,0 +1,27 @@
+<h1>{{ nombre() }}</h1>
+
+<dl>
+  <td>Nombre:</td>
+  <dd>{{ nombre() }}</dd>
+
+  <td>Edad:</td>
+  <dd>{{ edad() }}</dd>
+
+  <td>Método:</td>
+  <dd>{{ obtenerDescripcion() }}</dd>
+
+  <td>Mayúsculas (solución 1):</td>
+  <dd> {{ nombre().toUpperCase() }} </dd>
+
+  <td>Mayúsculas (solución 2):</td>
+  <dd> {{ nombreMayusculas() }} </dd>
+
+  <td>Mayúsculas (solución 3):</td>
+  <dd> {{ nombre() | uppercase }} </dd>
+</dl>
+
+<button (click)="cambiarHeroe()" class="btn btn-primary mx-2">Cambiar nombre</button>
+
+<button (click)="cambiarEdad(60)" class="btn btn-primary">Cambiar edad</button>
+
+<button (click)="restablecer()" class="btn btn-primary mx-2">Restablecer</button>

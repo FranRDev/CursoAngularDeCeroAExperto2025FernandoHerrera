@@ -11,10 +11,10 @@ export class PaginaContadorComponent {
   senhalContador = signal(10);
 
   constructor() {
-    setInterval(() => {
-      this.incrementar(1);
-      console.log('Tick');
-    }, 2000);
+    // setInterval(() => {
+    //   this.incrementar(1);
+    //   console.log('Tick');
+    // }, 2000);
   }
 
   incrementar(valor: number) {
