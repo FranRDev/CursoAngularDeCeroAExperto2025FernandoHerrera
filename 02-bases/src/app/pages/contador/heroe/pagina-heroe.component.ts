@@ -1,5 +1,5 @@
-import { UpperCasePipe } from "@angular/common";
 import { ChangeDetectionStrategy, Component, computed, signal } from "@angular/core";
+import { UpperCasePipe } from "@angular/common";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,8 +12,13 @@ export class PaginaHeroeComponent {
   public nombreMayusculas = computed(() => this.nombre().toUpperCase());
   public edad = signal(45);
 
+  public descripcionHeroe = computed(() => {
+    const descripcion = `${this.nombre()} - ${this.edad()}`;
+    return descripcion;
+  });
+
   public obtenerDescripcion() {
-    return `${this.nombre()} - ${this.edad()}`
+    return `${this.nombre()} - ${this.edad()}`;
   }
 
   private cambiarNombre(nombre: string) {
