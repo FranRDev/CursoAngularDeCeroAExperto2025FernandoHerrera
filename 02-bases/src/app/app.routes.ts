@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PaginaContadorComponent } from './pages/contador/pagina-contado.component';
+import { PaginaContadorComponent } from './pages/contador/pagina-contador.component';
 
 export const routes: Routes = [
   {

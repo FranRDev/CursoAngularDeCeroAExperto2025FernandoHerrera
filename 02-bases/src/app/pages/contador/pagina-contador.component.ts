@@ -1,10 +1,8 @@
 import { Component } from "@angular/core";
 
 @Component({
-  template: `
-  <h1>Contador: {{ contador }}</h1>
-  <button (click)="incrementar(1)">+1</button>
-  `
+  templateUrl: './pagina-contador.component.html',
+  styleUrl: './pagina-contador.component.css'
 })
 export class PaginaContadorComponent {
 
@@ -12,6 +10,10 @@ export class PaginaContadorComponent {
 
   incrementar(valor: number) {
     this.contador += valor;
+  }
+
+  restablecer() {
+    this.contador = 0;
   }
 
 }
