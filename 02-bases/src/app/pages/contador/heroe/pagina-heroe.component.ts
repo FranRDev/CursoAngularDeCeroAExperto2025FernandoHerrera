@@ -17,11 +17,11 @@ export class PaginaHeroeComponent {
   }
 
   private cambiarNombre(nombre: string) {
-    this.nombre.update(() => nombre);
+    this.nombre.set(nombre);
   }
 
   public cambiarEdad(edad: number) {
-    this.edad.update(() => edad);
+    this.edad.set(edad);
   }
 
   public cambiarHeroe() {
