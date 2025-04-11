@@ -1,13 +1,21 @@
-import { Component, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 
 @Component({
   templateUrl: './pagina-contador.component.html',
-  styleUrl: './pagina-contador.component.css'
+  styleUrl: './pagina-contador.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginaContadorComponent {
 
   contador = 10;
   senhalContador = signal(10);
+
+  constructor() {
+    setInterval(() => {
+      this.incrementar(1);
+      console.log('Tick');
+    }, 2000);
+  }
 
   incrementar(valor: number) {
     this.contador += valor;
