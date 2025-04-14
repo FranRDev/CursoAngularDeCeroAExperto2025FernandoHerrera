@@ -1,13 +1,11 @@
 import { Component, signal } from '@angular/core';
 
-interface Personaje {
-  id: number;
-  nombre: string;
-  poder: number;
-}
+import { ListaPersonajesComponent } from "../../components/shared/dragonball/lista-personajes/lista-personajes.component";
+import { Personaje } from '../../interfaces/personaje.interface';
 
 @Component({
   templateUrl: './pagina-dragonball-super.component.html',
+  imports: [ListaPersonajesComponent]
 })
 export class PaginaDragonBallSuperComponent {
 

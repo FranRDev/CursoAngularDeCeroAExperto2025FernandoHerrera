@@ -16,23 +16,7 @@
   </div>
 
   <div class="col-12 col-sm-6">
-    <h3>Lista fuertes</h3>
-
-    <ul>
-      @for (personaje of personajes(); track personaje.id; let indice = $index) {
-      @if (personaje.poder > 500) {
-      <li>
-        <span>{{ indice + 1 }} - {{ personaje.nombre }}</span>
-        <strong [class.text-danger]="personaje.poder > 9000" [class.text-primary]="personaje.poder < 9000">
-          ({{ personaje.poder }})
-        </strong>
-        <!-- <strong [ngClass]="clasesPoder()"> ({{ personaje.poder }})</strong> -->
-      </li>
-      } @else {
-      <li><strong>Aquí no hay nadie</strong></li>
-      }
-      }
-    </ul>
+    <dragonball-lista-personajes [personajes]="personajes()" />
   </div>
 
 </section>
