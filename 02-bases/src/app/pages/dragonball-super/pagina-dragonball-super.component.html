@@ -4,19 +4,11 @@
 <section class="row">
 
   <div class="col-12 col-sm-6">
-    <h3>Añadir: {{ nombre() }}</h3>
-
-    <input type="text" class="form-control" placeholder="Nombre" [value]="nombre()"
-      (input)="nombre.set(textoNombre.value)" #textoNombre />
-
-    <input type="number" class="form-control mt-2" placeholder="Poder" [value]="poder()"
-      (input)="poder.set(numeroPoder.valueAsNumber)" #numeroPoder />
-
-    <button class="mt-2 btn btn-primary" (click)="anhadirPersonaje()">Añadir</button>
+    <dragonball-anhadir-personaje />
   </div>
 
   <div class="col-12 col-sm-6">
-    <dragonball-lista-personajes [personajes]="personajes()" />
+    <dragonball-lista-personajes nombreLista="Lista de personajes" [personajes]="personajes()" />
   </div>
 
 </section>

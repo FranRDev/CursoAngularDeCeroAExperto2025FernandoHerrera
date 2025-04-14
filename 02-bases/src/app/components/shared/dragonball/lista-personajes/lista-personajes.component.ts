@@ -8,6 +8,7 @@ import type { Personaje } from '../../../../interfaces/personaje.interface';
 })
 export class ListaPersonajesComponent {
 
+  nombreLista = input.required<string>();
   personajes = input.required<Personaje[]>();
 
 }
