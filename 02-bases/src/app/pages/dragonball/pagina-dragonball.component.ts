@@ -18,6 +18,7 @@ export class PaginaDragonBallComponent {
   personajes = signal<Personaje[]>([
     { id: 1, nombre: 'Goku', poder: 9001 },
     { id: 2, nombre: 'Vegeta', poder: 8000 },
+    { id: 4, nombre: 'Yamcha', poder: 500 },
     { id: 3, nombre: 'Piccolo', poder: 3000 }
   ]);
 
