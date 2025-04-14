@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-// import { NgClass } from '@angular/common';
 
 interface Personaje {
   id: number;
@@ -8,28 +7,17 @@ interface Personaje {
 }
 
 @Component({
-  imports: [
-    // NgClass
-  ],
-  templateUrl: './pagina-dragonball.component.html',
+  templateUrl: './pagina-dragonball-super.component.html',
 })
-export class PaginaDragonBallComponent {
+export class PaginaDragonBallSuperComponent {
 
   nombre = signal('');
   poder = signal(0);
 
   personajes = signal<Personaje[]>([
     { id: 1, nombre: 'Goku', poder: 9001 },
-    // { id: 2, nombre: 'Vegeta', poder: 8000 },
-    // { id: 4, nombre: 'Yamcha', poder: 500 },
-    // { id: 3, nombre: 'Piccolo', poder: 3000 }
+    { id: 2, nombre: 'Vegeta', poder: 8000 }
   ]);
-
-  // clasesPoder = computed(() => {
-  //   return {
-  //     'text-danger': true
-  //   }
-  // })
 
   anhadirPersonaje() {
     if (!this.nombre() || !this.poder() || this.poder() <= 0) {

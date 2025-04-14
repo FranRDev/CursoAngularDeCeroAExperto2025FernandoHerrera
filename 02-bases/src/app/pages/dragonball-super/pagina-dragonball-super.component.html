@@ -1,0 +1,38 @@
+<h1>Página Dragon Ball</h1>
+<hr>
+
+<section class="row">
+
+  <div class="col-12 col-sm-6">
+    <h3>Añadir: {{ nombre() }}</h3>
+
+    <input type="text" class="form-control" placeholder="Nombre" [value]="nombre()"
+      (input)="nombre.set(textoNombre.value)" #textoNombre />
+
+    <input type="number" class="form-control mt-2" placeholder="Poder" [value]="poder()"
+      (input)="poder.set(numeroPoder.valueAsNumber)" #numeroPoder />
+
+    <button class="mt-2 btn btn-primary" (click)="anhadirPersonaje()">Añadir</button>
+  </div>
+
+  <div class="col-12 col-sm-6">
+    <h3>Lista fuertes</h3>
+
+    <ul>
+      @for (personaje of personajes(); track personaje.id; let indice = $index) {
+      @if (personaje.poder > 500) {
+      <li>
+        <span>{{ indice + 1 }} - {{ personaje.nombre }}</span>
+        <strong [class.text-danger]="personaje.poder > 9000" [class.text-primary]="personaje.poder < 9000">
+          ({{ personaje.poder }})
+        </strong>
+        <!-- <strong [ngClass]="clasesPoder()"> ({{ personaje.poder }})</strong> -->
+      </li>
+      } @else {
+      <li><strong>Aquí no hay nadie</strong></li>
+      }
+      }
+    </ul>
+  </div>
+
+</section>
