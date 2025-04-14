@@ -15,4 +15,8 @@ export class PaginaDragonBallSuperComponent {
     { id: 2, nombre: 'Vegeta', poder: 8000 }
   ]);
 
+  anhadirPersonaje(personaje: Personaje) {
+    this.personajes.update((lista) => [...lista, personaje]);
+  }
+
 }
