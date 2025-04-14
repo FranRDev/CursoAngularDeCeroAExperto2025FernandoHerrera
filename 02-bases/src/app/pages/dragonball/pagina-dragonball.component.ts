@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 // import { NgClass } from '@angular/common';
 
 interface Personaje {
@@ -15,6 +15,9 @@ interface Personaje {
 })
 export class PaginaDragonBallComponent {
 
+  nombre = signal('Gohan');
+  poder = signal(100);
+
   personajes = signal<Personaje[]>([
     { id: 1, nombre: 'Goku', poder: 9001 },
     { id: 2, nombre: 'Vegeta', poder: 8000 },
@@ -27,5 +30,9 @@ export class PaginaDragonBallComponent {
   //     'text-danger': true
   //   }
   // })
+
+  anhadirPersonaje() {
+    console.log(this.nombre(), this.poder());
+  }
 
 }
