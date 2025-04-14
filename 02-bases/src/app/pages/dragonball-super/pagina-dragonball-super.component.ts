@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { AnhadirPersonajeComponent } from "../../components/shared/dragonball/anhadir-personaje/anhadir-personaje.component";
 import { ListaPersonajesComponent } from "../../components/shared/dragonball/lista-personajes/lista-personajes.component";
-import { Personaje } from '../../interfaces/personaje.interface';
+import { DragonBallService } from '../../services/dragonball.service';
 
 @Component({
   templateUrl: './pagina-dragonball-super.component.html',
@@ -10,13 +10,10 @@ import { Personaje } from '../../interfaces/personaje.interface';
 })
 export class PaginaDragonBallSuperComponent {
 
-  personajes = signal<Personaje[]>([
-    { id: 1, nombre: 'Goku', poder: 9001 },
-    { id: 2, nombre: 'Vegeta', poder: 8000 }
-  ]);
+  // constructor(
+  //   public servicioDragonBall: DragonBallService
+  // ) { }
 
-  anhadirPersonaje(personaje: Personaje) {
-    this.personajes.update((lista) => [...lista, personaje]);
-  }
+  public servicioDragonBall = inject(DragonBallService);
 
 }
