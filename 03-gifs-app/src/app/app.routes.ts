@@ -3,15 +3,21 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'panel',
-    loadComponent: () => import('./gifs/pages/panel/panel.component')
-  },
-  {
-    path: 'tendencias',
-    loadComponent: () => import('./gifs/pages/tendencias/tendencias.component')
-  },
-  {
-    path: 'busqueda',
-    loadComponent: () => import('./gifs/pages/busqueda/busqueda.component')
+    loadComponent: () => import('./gifs/pages/panel/pagina-panel.component'),
+    children: [
+      {
+        path: 'tendencias',
+        loadComponent: () => import('./gifs/pages/tendencias/pagina-tendencias.component')
+      },
+      {
+        path: 'busqueda',
+        loadComponent: () => import('./gifs/pages/busqueda/pagina-busqueda.component')
+      },
+      {
+        path: '**',
+        redirectTo: 'tendencias'
+      }
+    ]
   },
   {
     path: '**',

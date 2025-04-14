@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'pagina-panel',
-  templateUrl: './panel.component.html'
+  imports: [RouterOutlet],
+  templateUrl: './pagina-panel.component.html'
 })
 export default class PaginaPanelComponent { }
