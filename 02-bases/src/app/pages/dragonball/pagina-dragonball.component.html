@@ -7,12 +7,10 @@
     <h3>Añadir: {{ nombre() }}</h3>
 
     <input type="text" class="form-control" placeholder="Nombre" [value]="nombre()"
-      (change)="nombre.set(textoNombre.value)" (input)="nombre.set(textoNombre.value)" #textoNombre />
-
-    <h3>{{ poder() }}</h3>
+      (input)="nombre.set(textoNombre.value)" #textoNombre />
 
     <input type="number" class="form-control mt-2" placeholder="Poder" [value]="poder()"
-      (change)="poder.set(numeroPoder.valueAsNumber)" (input)="poder.set(numeroPoder.valueAsNumber)" #numeroPoder />
+      (input)="poder.set(numeroPoder.valueAsNumber)" #numeroPoder />
 
     <button class="mt-2 btn btn-primary" (click)="anhadirPersonaje()">Añadir</button>
   </div>

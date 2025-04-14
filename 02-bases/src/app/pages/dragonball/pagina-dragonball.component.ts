@@ -32,7 +32,23 @@ export class PaginaDragonBallComponent {
   // })
 
   anhadirPersonaje() {
-    console.log(this.nombre(), this.poder());
+    if (!this.nombre() || !this.poder() || this.poder() <= 0) {
+      return;
+    }
+
+    const nuevoPersonaje: Personaje = {
+      id: this.personajes().length + 1,
+      nombre: this.nombre(),
+      poder: this.poder()
+    }
+
+    this.personajes.update((lista) => [...lista, nuevoPersonaje]);
+    this.restablecerCampos();
+  }
+
+  restablecerCampos() {
+    this.nombre.set('');
+    this.poder.set(0);
   }
 
 }
