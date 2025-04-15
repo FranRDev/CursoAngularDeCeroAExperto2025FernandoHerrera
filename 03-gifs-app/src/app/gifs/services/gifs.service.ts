@@ -6,6 +6,7 @@ import { environment } from '@envs/environment';
 import type { Gif } from '../interfaces/gif.interface';
 import type { RespuestaGiphy } from '../interfaces/giphy.interfaces';
 import { GifMapper } from '../mapping/gif.mapper';
+import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
@@ -19,16 +20,22 @@ export class GifsService {
   }
 
   buscar(busqueda: string) {
-    this.clienteHttp.get<RespuestaGiphy>(`${environment.giphyApiUrl}/gifs/search`, {
+    return this.clienteHttp.get<RespuestaGiphy>(`${environment.giphyApiUrl}/gifs/search`, {
       params: {
         api_key: environment.giphyApiKey,
         limit: 20,
         q: busqueda
       }
-    }).subscribe((respuesta) => {
-      const gifs = GifMapper.mapearElementosGiphyAGifs(respuesta.data);
-      console.log(respuesta);
-    });
+    }).pipe(
+      map(({data}) => data),
+      map((elementos) => GifMapper.mapearElementosGiphyAGifs(elementos))
+      // TODO: Historial
+    );
+
+    // .subscribe((respuesta) => {
+    //   const gifs = GifMapper.mapearElementosGiphyAGifs(respuesta.data);
+    //   console.log(respuesta);
+    // });
   }
 
   cargarTendencias() {

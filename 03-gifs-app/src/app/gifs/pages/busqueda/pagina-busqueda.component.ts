@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
-import { ListaComponent } from "../../components/lista/lista.component";
 import { GifsService } from '../../services/gifs.service';
+import { ListaComponent } from "../../components/lista/lista.component";
+
+import type { Gif } from '../../interfaces/gif.interface';
 
 @Component({
   imports: [ListaComponent],
@@ -11,10 +13,12 @@ import { GifsService } from '../../services/gifs.service';
 export default class PaginaBusquedaComponent {
 
   private servicioGifs = inject(GifsService);
+  gifs = signal<Gif[]>([]);
 
   buscar(busqueda: string) {
-    this.servicioGifs.buscar(busqueda);
-    // console.log(busqueda);
+    this.servicioGifs.buscar(busqueda).subscribe(respuesta => {
+      this.gifs.set(respuesta);
+    });
   }
 
 }
