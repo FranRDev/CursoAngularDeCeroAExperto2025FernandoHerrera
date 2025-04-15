@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
-import { ListaElementosComponent } from "./lista-elementos/lista-elementos.component";
+import { ListaElementoComponent } from './lista-elemento/lista-elemento.component';
+
+import type { Gif } from '../../interfaces/gif.interface';
 
 @Component({
   selector: 'gifs-lista',
   templateUrl: './lista.component.html',
-  imports: [ListaElementosComponent]
+  imports: [ListaElementoComponent]
 })
-export class ListaComponent { }
+export class ListaComponent {
+
+  gifs = input.required<Gif[]>();
+
+}
