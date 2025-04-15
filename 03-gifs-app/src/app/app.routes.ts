@@ -14,6 +14,10 @@ export const routes: Routes = [
         loadComponent: () => import('./gifs/pages/busqueda/pagina-busqueda.component')
       },
       {
+        path: 'historial/:busqueda',
+        loadComponent: () => import('./gifs/pages/historial/pagina-historial.component')
+      },
+      {
         path: '**',
         redirectTo: 'tendencias'
       }
