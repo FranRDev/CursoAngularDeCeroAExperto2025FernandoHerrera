@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 import { GifMapper } from '../mapping/gif.mapper';
 import { environment } from '@envs/environment';
@@ -21,7 +21,7 @@ export class GifsService {
     this.cargarTendencias();
   }
 
-  buscar(busqueda: string) {
+  buscar(busqueda: string): Observable<Gif[]> {
     return this.clienteHttp.get<RespuestaGiphy>(`${environment.giphyApiUrl}/gifs/search`, {
       params: {
         api_key: environment.giphyApiKey,
@@ -57,6 +57,10 @@ export class GifsService {
       this.cargandoTendencias.set(false);
       console.log(gifs);
     });
+  }
+
+  obtenerGifsHistorial(busqueda: string): Gif[] {
+    return this.historial()[busqueda] ?? [];
   }
 
 }

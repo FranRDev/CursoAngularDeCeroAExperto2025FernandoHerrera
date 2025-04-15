@@ -1,3 +1,5 @@
-<p>historial works!</p>
+<h3 class="text-2xl font-bold mt-4">Historial: {{ busqueda() }}</h3>
 
-<h3>{{ busqueda() }}</h3>
+<div class="py-5">
+  <gifs-lista [gifs]="gifsPorBusqueda()" />
+</div>
