@@ -1,22 +1,27 @@
-import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angular/core';
 
 import { GifsService } from '../../services/gifs.service';
-import { ListaComponent } from "../../components/lista/lista.component";
-
-import type { Gif } from '../../interfaces/gif.interface';
+import { EstadoScrollService } from 'src/app/shared/services/estado-scroll.service';
 
 @Component({
-  // imports: [ListaComponent],
   selector: 'pagina-tendencias',
   templateUrl: './pagina-tendencias.component.html'
 })
-export default class PaginaTendenciasComponent {
+export default class PaginaTendenciasComponent implements AfterViewInit {
 
   servicioGifs = inject(GifsService);
+  servicioEstadoScroll = inject(EstadoScrollService);
 
   divGrupo = viewChild<ElementRef<HTMLDivElement>>('divGrupo');
 
-  cambioScroll(evento: Event) {
+  ngAfterViewInit(): void {
+    const div = this.divGrupo()?.nativeElement;
+    if (!div) return;
+
+    div.scrollTop = this.servicioEstadoScroll.estadoScrollTendencias();
+  }
+
+  cambioScroll() {
     const div = this.divGrupo()?.nativeElement;
     if (!div) return;
 
@@ -24,6 +29,7 @@ export default class PaginaTendenciasComponent {
     const altoCliente = div.clientHeight;
     const altoScroll = div.scrollHeight;
     const final = scrollTop + altoCliente + 300 >= altoScroll;
+    this.servicioEstadoScroll.estadoScrollTendencias.set(scrollTop);
 
     if (final) {
       this.servicioGifs.cargarTendencias();

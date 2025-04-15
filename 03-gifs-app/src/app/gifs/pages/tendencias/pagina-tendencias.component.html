@@ -2,7 +2,7 @@
   <gifs-lista [gifs]="servicioGifs.tendencias()" />
 </div> -->
 
-<div class="h-screen overflow-y-scroll grid grid-cols-2 md:grid-cols-4 gap-4 pt-5" (scroll)="cambioScroll($event)" #divGrupo>
+<div class="h-screen overflow-y-scroll grid grid-cols-2 md:grid-cols-4 gap-4 pt-5" (scroll)="cambioScroll()" #divGrupo>
 
   @for (grupo of servicioGifs.gruposTendencias(); track $index) {
   <div class="grid gap-4">
