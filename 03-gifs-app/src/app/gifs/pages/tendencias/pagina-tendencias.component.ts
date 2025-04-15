@@ -14,11 +14,20 @@ export default class PaginaTendenciasComponent {
 
   servicioGifs = inject(GifsService);
 
-  divGrupo = viewChild<ElementRef>('divGrupo');
+  divGrupo = viewChild<ElementRef<HTMLDivElement>>('divGrupo');
 
   cambioScroll(evento: Event) {
-    const scrollDiv = this.divGrupo()?.nativeElement;
-    console.log(scrollDiv);
+    const div = this.divGrupo()?.nativeElement;
+    if (!div) return;
+
+    const scrollTop = div.scrollTop;
+    const altoCliente = div.clientHeight;
+    const altoScroll = div.scrollHeight;
+    const final = scrollTop + altoCliente + 300 >= altoScroll;
+
+    if (final) {
+      // TODO: Cargar siguiente página
+    }
   }
 
 }
