@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 import { environment } from '@envs/environment';
 
+import type { Gif } from '../interfaces/gif.interface';
 import type { RespuestaGiphy } from '../interfaces/giphy.interfaces';
+import { GifMapper } from '../mapping/gif.mapper';
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
 
   private clienteHttp = inject(HttpClient);
+  tendencias = signal<Gif[]>([]);
 
   constructor() {
     this.cargarTendencias();
@@ -20,6 +23,10 @@ export class GifsService {
         api_key: environment.giphyApiKey,
         limit: 20
       }
+    }).subscribe((respuesta) => {
+      const gifs = GifMapper.mapearElementosGiphyAGifs(respuesta.data);
+      this.tendencias.set(gifs);
+      console.log(gifs);
     })
   }
 

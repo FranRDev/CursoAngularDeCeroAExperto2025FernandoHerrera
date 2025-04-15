@@ -1,10 +1,10 @@
 export interface RespuestaGiphy {
-  data:       Data[];
+  data:       ElementoGiphy[];
   meta:       Meta;
   pagination: Pagination;
 }
 
-export interface Data {
+export interface ElementoGiphy {
   type:                       Type;
   id:                         string;
   url:                        string;
