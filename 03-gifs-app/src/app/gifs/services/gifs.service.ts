@@ -25,8 +25,6 @@ export class GifsService {
       grupos.push(this.tendencias().slice(indice, indice + 3));
     }
 
-    console.log(grupos);
-
     return grupos;
   });
 
@@ -68,7 +66,6 @@ export class GifsService {
       const gifs = GifMapper.mapearElementosGiphyAGifs(respuesta.data);
       this.tendencias.set(gifs);
       this.cargandoTendencias.set(false);
-      console.log(gifs);
     });
   }
 
