@@ -26,7 +26,7 @@ export default class PaginaTendenciasComponent {
     const final = scrollTop + altoCliente + 300 >= altoScroll;
 
     if (final) {
-      // TODO: Cargar siguiente página
+      this.servicioGifs.cargarTendencias();
     }
   }
 
