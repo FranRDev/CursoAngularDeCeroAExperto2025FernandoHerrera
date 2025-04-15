@@ -18,6 +18,19 @@ export class GifsService {
     this.cargarTendencias();
   }
 
+  buscar(busqueda: string) {
+    this.clienteHttp.get<RespuestaGiphy>(`${environment.giphyApiUrl}/gifs/search`, {
+      params: {
+        api_key: environment.giphyApiKey,
+        limit: 20,
+        q: busqueda
+      }
+    }).subscribe((respuesta) => {
+      const gifs = GifMapper.mapearElementosGiphyAGifs(respuesta.data);
+      console.log(respuesta);
+    });
+  }
+
   cargarTendencias() {
     this.clienteHttp.get<RespuestaGiphy>(`${environment.giphyApiUrl}/gifs/trending`, {
       params: {
@@ -29,7 +42,7 @@ export class GifsService {
       this.tendencias.set(gifs);
       this.cargandoTendencias.set(false);
       console.log(gifs);
-    })
+    });
   }
 
 }
