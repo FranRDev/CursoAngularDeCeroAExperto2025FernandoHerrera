@@ -1,3 +1,14 @@
-<div class="py-5">
+<!-- <div class="py-5">
   <gifs-lista [gifs]="servicioGifs.tendencias()" />
-</div>
+</div> -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-5">
+  @for (grupo of servicioGifs.gruposTendencias(); track $index) {
+  <div class="grid gap-4">
+    @for (gif of grupo; track gif.id) {
+    <div>
+      <img class="h-full w-full rounded-lg object-cover" [src]="gif.url" [alt]="gif.titulo">
+    </div>
+    }
+  </div>
+  }

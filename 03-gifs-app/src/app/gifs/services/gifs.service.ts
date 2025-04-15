@@ -14,8 +14,22 @@ const KEY_LOCAL_STORAGE = 'historial-gifs';
 export class GifsService {
 
   private clienteHttp = inject(HttpClient);
+
   tendencias = signal<Gif[]>([]);
   cargandoTendencias = signal<boolean>(true);
+
+  gruposTendencias = computed<Gif[][]>(() => {
+    const grupos = [];
+
+    for (let indice = 0; indice < this.tendencias().length; indice += 3) {
+      grupos.push(this.tendencias().slice(indice, indice + 3));
+    }
+
+    console.log(grupos);
+
+    return grupos;
+  });
+
   historial = signal<Record<string, Gif[]>>(cargarDeLocalStorage());
   busquedas = computed(() => Object.keys(this.historial()));
 
