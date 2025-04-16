@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
 
-import { PaginaPorCapitalComponent } from "./pages/por-capital/pagina-por-capital.component";
 import { LayoutPaisesComponent } from "./layouts/layout-paises/layout-paises.component";
 
 export const PaisesRoutes: Routes = [
@@ -10,7 +9,19 @@ export const PaisesRoutes: Routes = [
     children: [
       {
         path: 'por-capital',
-        component: PaginaPorCapitalComponent
+        loadComponent: () => import('./pages/por-capital/pagina-por-capital.component')
+      },
+      {
+        path: 'por-pais',
+        loadComponent: () => import('./pages/por-pais/pagina-por-pais.component')
+      },
+      {
+        path: 'por-region',
+        loadComponent: () => import('./pages/por-region/pagina-por-region.component')
+      },
+      {
+        path: 'por/:codigo',
+        loadComponent: () => import('./pages/pais/pagina-pais.component')
       },
       {
         path: '**',

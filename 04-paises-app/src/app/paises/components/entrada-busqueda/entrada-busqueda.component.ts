@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'paises-entrada-busqueda',
@@ -7,10 +7,7 @@ import { Component, output } from '@angular/core';
 })
 export class EntradaBusquedaComponent {
 
-  buscar = output<string>();
-
-  buscarPulsado(texto: string) {
-    this.buscar.emit(texto);
-  }
+  placeholder = input<string>('Buscar');
+  valor = output<string>();
 
 }

@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-
 import { EntradaBusquedaComponent } from "../../components/entrada-busqueda/entrada-busqueda.component";
 import { ListaComponent } from "../../components/lista/lista.component";
 
 @Component({
-  selector: 'pagina-por-capital',
+  selector: 'pagina-por-pais',
   imports: [EntradaBusquedaComponent, ListaComponent],
-  templateUrl: './pagina-por-capital.component.html'
+  templateUrl: './pagina-por-pais.component.html'
 })
-export default class PaginaPorCapitalComponent {
+export default class PaginaPorPaisComponent {
 
-  buscar(texto: string) {
-    console.log(texto);
+  buscar(valor: string) {
+    console.log(valor);
   }
 
 }
