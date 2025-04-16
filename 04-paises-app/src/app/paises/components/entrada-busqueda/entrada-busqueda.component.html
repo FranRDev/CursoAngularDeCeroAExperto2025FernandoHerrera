@@ -1,0 +1,8 @@
+<section class="flex flex-row gap-2 mt-2">
+
+  <input type="text" class="input input-bordered mr-2 w-56" placeholder="Buscar por capital" autofocus #txtBusqueda
+    (keyup.enter)="buscarPulsado(txtBusqueda.value)">
+
+  <button class="btn btn-primary" (click)="buscarPulsado(txtBusqueda.value)">Buscar</button>
+
+</section>
