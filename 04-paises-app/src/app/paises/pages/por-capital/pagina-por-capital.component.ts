@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { EntradaBusquedaComponent } from "../../components/entrada-busqueda/entrada-busqueda.component";
 import { ListaComponent } from "../../components/lista/lista.component";
-import { Pais } from '../../interfaces/paises.interfaces';
+// import { Pais } from '../../interfaces/paises.interfaces';
 import { PaisesService } from '../../services/paises.service';
 
 @Component({
