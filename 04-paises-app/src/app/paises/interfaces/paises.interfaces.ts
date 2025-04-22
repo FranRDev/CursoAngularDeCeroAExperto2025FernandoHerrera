@@ -5,4 +5,6 @@ export interface Pais {
   nombre: string;
   capital: string;
   poblacion: number;
+  region: string;
+  subregion: string;
 }

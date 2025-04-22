@@ -1,5 +1,52 @@
 <section>
   <h1 class="text-3xl">{{ pais().nombre }}</h1>
   <h1 class="text-xl font-thin">Población: {{ pais().poblacion | number }}</h1>
+</section>
 
+<section class="stats m-5">
+  <div class="stat place-items-center">
+    <div class="stat-title">Código</div>
+    <div class="stat-value">{{ pais().cca2 }}</div>
+    <div class="stat-desc">CCA2</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Población</div>
+    <div class="stat-value text-secondary">{{ pais().poblacion | number }}</div>
+    <div class="stat-desc text-secondary">de personas</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Capital</div>
+    <div class="stat-value">{{ pais().capital }}</div>
+    <div class="stat-desc">{{ pais().nombre }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Bandera</div>
+    <div class="stat-value">{{ pais().bandera }}</div>
+    <div class="stat-desc">{{ pais().subregion }}</div>
+  </div>
+</section>
+
+<section class="mt-4">
+  <div class="chat chat-start">
+    <div class="chat-bubble chat-bubble-primary">{{ pais().region }}</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-bubble chat-bubble-info">{{ pais().subregion }}</div>
+  </div>
+</section>
+
+<section class="diff aspect-16/9 mt-4" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <img [alt]="pais().nombre" [src]="pais().banderaSvg" class="blur brightness-75" />
+  </div>
+
+  <div class="diff-item-2" role="img">
+    <img [alt]="pais().nombre" [src]="pais().banderaSvg" />
+  </div>
+
+  <div class="diff-resizer"></div>
 </section>
