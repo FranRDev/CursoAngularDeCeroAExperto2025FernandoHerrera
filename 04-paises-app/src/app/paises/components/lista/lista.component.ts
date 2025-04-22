@@ -12,5 +12,8 @@ import { Pais } from '../../interfaces/paises.interfaces';
 export class ListaComponent {
 
   paises = input.required<Pais[]>();
+  mensajeError = input<string | unknown | null>();
+  cargando = input<boolean>(false);
+  vacio = input<boolean>(false);
 
 }

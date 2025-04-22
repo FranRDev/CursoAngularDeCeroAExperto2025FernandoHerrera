@@ -1,8 +1,4 @@
 <paises-entrada-busqueda placeholder="Buscar por capital" (valor)="busqueda.set($event)" />
 
-@if (recursoPaises.error()) {
-<h3>{{ recursoPaises.error() }}</h3>
-
-} @if (recursoPaises.hasValue()) {
-<paises-lista [paises]="recursoPaises.value()" />
-}
+<paises-lista [paises]="recursoPaises.value() ?? []" [mensajeError]="recursoPaises.error()"
+  [vacio]="recursoPaises.value()?.length === 0" [cargando]="recursoPaises.isLoading()" />

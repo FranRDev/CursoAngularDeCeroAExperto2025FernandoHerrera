@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, delay, map, throwError } from 'rxjs';
 
 import type { ElementoRestCountries } from '../interfaces/rest-countries.interfaces';
 import { PaisesMapper } from '../mapping/paises.mapper';
@@ -34,6 +34,7 @@ export class PaisesService {
       .get<ElementoRestCountries[]>(`${API_URL}/name/${texto}`)
       .pipe(
         map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)),
+        delay(2000),
         catchError(error => {
           console.log('Error: ', error);
           return throwError(() => new Error(`No se encontraron países que contengan: ${texto}`));
