@@ -1,4 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, resource, signal } from '@angular/core';
+
+import { firstValueFrom } from 'rxjs';
 
 import { EntradaBusquedaComponent } from "../../components/entrada-busqueda/entrada-busqueda.component";
 import { ListaComponent } from "../../components/lista/lista.component";
@@ -12,29 +14,38 @@ import { PaisesService } from '../../services/paises.service';
 })
 export default class PaginaPorCapitalComponent {
 
+  busqueda = signal<string>('');
   servicioPaises = inject(PaisesService);
 
-  cargando = signal(false);
-  error = signal<string | null>(null);
-  paises = signal<Pais[]>([]);
+  recursoPaises = resource({
+    request: () => ({ busqueda: this.busqueda() }),
+    loader: async ({ request }) => {
+      if (!request.busqueda) return [];
+      return await firstValueFrom(this.servicioPaises.buscarPorCapital(request.busqueda));
+    }
+  });
 
-  buscar(texto: string) {
-    if (this.cargando()) return;
+  // cargando = signal(false);
+  // error = signal<string | null>(null);
+  // paises = signal<Pais[]>([]);
 
-    this.cargando.set(true);
-    this.error.set(null);
+  // buscar(texto: string) {
+  //   if (this.cargando()) return;
 
-    this.servicioPaises.buscarPorCapital(texto).subscribe({
-      next: (paises) => {
-        this.cargando.set(false);
-        this.paises.set(paises);
-      },
-      error: (error) => {
-        this.cargando.set(false);
-        this.paises.set([]);
-        this.error.set(error);
-      }
-    });
-  }
+  //   this.cargando.set(true);
+  //   this.error.set(null);
+
+  //   this.servicioPaises.buscarPorCapital(texto).subscribe({
+  //     next: (paises) => {
+  //       this.cargando.set(false);
+  //       this.paises.set(paises);
+  //     },
+  //     error: (error) => {
+  //       this.cargando.set(false);
+  //       this.paises.set([]);
+  //       this.error.set(error);
+  //     }
+  //   });
+  // }
 
 }

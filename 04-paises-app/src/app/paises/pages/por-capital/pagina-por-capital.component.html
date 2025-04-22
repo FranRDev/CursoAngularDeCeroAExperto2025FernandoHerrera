@@ -1,8 +1,8 @@
-<paises-entrada-busqueda placeholder="Buscar por capital" (valor)="buscar($event)" />
+<paises-entrada-busqueda placeholder="Buscar por capital" (valor)="busqueda.set($event)" />
 
-@if (error()) {
-<h3>{{error()}}</h3>
+@if (recursoPaises.error()) {
+<h3>{{ recursoPaises.error() }}</h3>
 
-} @else {
-<paises-lista [paises]="paises()" />
+} @if (recursoPaises.hasValue()) {
+<paises-lista [paises]="recursoPaises.value()" />
 }
