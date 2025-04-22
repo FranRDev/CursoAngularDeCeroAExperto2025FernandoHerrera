@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 import { Pais } from '../../interfaces/paises.interfaces';
 
 @Component({
   selector: 'paises-lista',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './lista.component.html'
 })
 export class ListaComponent {
