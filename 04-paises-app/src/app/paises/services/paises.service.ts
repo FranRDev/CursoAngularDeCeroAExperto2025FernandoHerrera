@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { map } from 'rxjs';
 
-import { ElementoRestCountries } from '../interfaces/rest-countries.interfaces';
+import type { ElementoRestCountries } from '../interfaces/rest-countries.interfaces';
 import { PaisesMapper } from '../mapping/paises.mapper';
 
 const API_URL = 'https://restcountries.com/v3.1';

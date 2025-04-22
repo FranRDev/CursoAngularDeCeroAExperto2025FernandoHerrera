@@ -1,6 +1,5 @@
-import { Pais } from "../interfaces/paises.interfaces";
-
-import { ElementoRestCountries } from "../interfaces/rest-countries.interfaces";
+import type { ElementoRestCountries } from "../interfaces/rest-countries.interfaces";
+import type { Pais } from "../interfaces/paises.interfaces";
 
 export class PaisesMapper {
 
@@ -10,7 +9,7 @@ export class PaisesMapper {
       bandera: elemento.flag,
       banderaSvg: elemento.flags.svg,
       nombre: elemento.name.common,
-      capital: elemento.capital[0],
+      capital: elemento.capital.join(','),
       poblacion: elemento.population
     }
   }
