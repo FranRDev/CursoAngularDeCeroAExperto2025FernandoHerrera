@@ -42,4 +42,17 @@ export class PaisesService {
       );
   }
 
+  buscarPaisPorCodigo(codigo: string) {
+    return this.clienteHttp
+      .get<ElementoRestCountries[]>(`${API_URL}/alpha/${codigo}`)
+      .pipe(
+        map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)),
+        map(paises => paises.at(0)),
+        catchError(error => {
+          console.log('Error: ', error);
+          return throwError(() => new Error(`No se encontró país con código: ${codigo}`));
+        })
+      );
+  }
+
 }
