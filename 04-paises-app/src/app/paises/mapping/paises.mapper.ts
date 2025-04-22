@@ -9,7 +9,7 @@ export class PaisesMapper {
       bandera: elemento.flag,
       banderaSvg: elemento.flags.svg,
       nombre: elemento.translations['spa'].common ?? 'Sin nombre español',
-      capital: elemento.capital.join(', '),
+      capital: elemento.capital?.join(', ') ?? 'Sin capital',
       poblacion: elemento.population
     }
   }

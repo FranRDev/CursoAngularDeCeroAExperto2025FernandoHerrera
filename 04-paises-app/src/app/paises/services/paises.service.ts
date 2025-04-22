@@ -27,4 +27,18 @@ export class PaisesService {
       );
   }
 
+  buscarPorPais(texto: string) {
+    texto = texto.toLocaleLowerCase();
+
+    return this.clienteHttp
+      .get<ElementoRestCountries[]>(`${API_URL}/name/${texto}`)
+      .pipe(
+        map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)),
+        catchError(error => {
+          console.log('Error: ', error);
+          return throwError(() => new Error(`No se encontraron países que contengan: ${texto}`));
+        })
+      );
+  }
+
 }

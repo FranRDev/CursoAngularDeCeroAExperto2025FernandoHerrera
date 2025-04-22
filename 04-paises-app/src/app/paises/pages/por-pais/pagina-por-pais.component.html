@@ -1,3 +1,8 @@
-<paises-entrada-busqueda placeholder="Buscar por país" (valor)="buscar($event)" />
+<paises-entrada-busqueda placeholder="Buscar por país" (valor)="busqueda.set($event)" />
 
-<paises-lista [paises]="[]" />
+@if (recursoPaises.error()) {
+<h3>{{ recursoPaises.error() }}</h3>
+
+} @if (recursoPaises.hasValue()) {
+<paises-lista [paises]="recursoPaises.value()" />
+}
