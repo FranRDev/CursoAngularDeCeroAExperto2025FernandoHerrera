@@ -24,10 +24,16 @@ export default class PaginaPorCapitalComponent {
     this.cargando.set(true);
     this.error.set(null);
 
-    this.servicioPaises.buscarPorCapital(texto).subscribe(paises => {
-      this.cargando.set(false);
-      this.paises.set(paises);
-      console.log(paises);
+    this.servicioPaises.buscarPorCapital(texto).subscribe({
+      next: (paises) => {
+        this.cargando.set(false);
+        this.paises.set(paises);
+      },
+      error: (error) => {
+        this.cargando.set(false);
+        this.paises.set([]);
+        this.error.set(error);
+      }
     });
   }
 
