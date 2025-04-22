@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
+import { map } from 'rxjs';
+
+import { ElementoRestCountries } from '../interfaces/rest-countries.interfaces';
+import { PaisesMapper } from '../mapping/paises.mapper';
+
 const API_URL = 'https://restcountries.com/v3.1';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +15,10 @@ export class PaisesService {
 
   buscarPorCapital(texto: string) {
     texto = texto.toLocaleLowerCase();
-    return this.clienteHttp.get(`${API_URL}/capital/${texto}`);
+
+    return this.clienteHttp
+      .get<ElementoRestCountries[]>(`${API_URL}/capital/${texto}`)
+      .pipe(map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)));
   }
 
 }

@@ -14,9 +14,21 @@
     </thead>
 
     <tbody>
+      @for (pais of paises(); track pais.cca2; let indice = $index) {
       <tr>
-
+        <td>{{ indice + 1 }}</td>
+        <td>{{ pais.bandera }}</td>
+        <td>
+          <img [src]="pais.banderaSvg" [alt]="pais.nombre" class="w-10">
+        </td>
+        <td>{{ pais.nombre }}</td>
+        <td>{{ pais.capital }}</td>
+        <td>{{ pais.poblacion }}</td>
+        <td>
+          <a class="link-primary cursor-pointer">Más información</a>
+        </td>
       </tr>
+      }
     </tbody>
   </table>
 
