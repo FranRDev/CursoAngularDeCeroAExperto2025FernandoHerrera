@@ -1,4 +1,4 @@
-<paises-entrada-busqueda placeholder="Buscar por país" (valor)="busqueda.set($event)" />
+<paises-entrada-busqueda placeholder="Buscar por país" (valor)="busqueda.set($event)" [valorInicial]="busqueda()" />
 
 <paises-lista [paises]="recursoPaises.value() ?? []" [mensajeError]="recursoPaises.error()"
   [vacio]="recursoPaises.value()?.length === 0" [cargando]="recursoPaises.isLoading()" />

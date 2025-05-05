@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
@@ -16,6 +16,7 @@ import { PaisesService } from '../../services/paises.service';
 export default class PaginaPorCapitalComponent {
 
   servicioPaises = inject(PaisesService);
+  enrutador = inject(Router);
   rutaActiva = inject(ActivatedRoute);
   parametroBusqueda = this.rutaActiva.snapshot.queryParamMap.get('busqueda') ?? '';
   busqueda = linkedSignal<string>(() => this.parametroBusqueda);
@@ -23,8 +24,8 @@ export default class PaginaPorCapitalComponent {
   recursoPaises = rxResource({
     request: () => ({ busqueda: this.busqueda() }),
     loader: ({ request }) => {
-      console.log(({ busqueda: request.busqueda }));
       if (!request.busqueda) return of([]);
+      this.enrutador.navigate(['/paises/por-capital'], { queryParams: { busqueda: request.busqueda } });
       return this.servicioPaises.buscarPorCapital(request.busqueda);
     }
   });
