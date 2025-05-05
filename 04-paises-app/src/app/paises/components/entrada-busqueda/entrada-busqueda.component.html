@@ -1,7 +1,7 @@
 <section class="flex flex-row gap-2 mt-2">
 
   <input type="text" class="input input-bordered mr-2 w-56" [placeholder]="placeholder()" autofocus #txtBusqueda
-    (keyup.enter)="valor.emit(txtBusqueda.value)">
+    (keyup.enter)="valor.emit(txtBusqueda.value)" (keyup)="valorEntrada.set(txtBusqueda.value)">
 
   <button class="btn btn-primary" (click)="valor.emit(txtBusqueda.value)">Buscar</button>
 
