@@ -8,6 +8,19 @@ import { ListaComponent } from "../../components/lista/lista.component";
 import type { Region } from '../../interfaces/paises.interfaces';
 import { PaisesService } from '../../services/paises.service';
 
+function validarRegionParametro(parametro: string): Region {
+  const regionesValidas: Record<string, Region> = {
+    'africa': 'Africa',
+    'americas': 'Americas',
+    'asia': 'Asia',
+    'europa': 'Europe',
+    'oceania': 'Oceania',
+    'antarctica': 'Antarctic'
+  };
+
+  return regionesValidas[parametro.toLowerCase()] ?? 'Europe';
+}
+
 @Component({
   selector: 'pagina-por-region',
   imports: [ListaComponent],
@@ -27,8 +40,8 @@ export default class PaginaPorRegionComponent {
   servicioPaises = inject(PaisesService);
   enrutador = inject(Router);
   rutaActiva = inject(ActivatedRoute);
-  parametroRegion = (this.rutaActiva.snapshot.queryParamMap.get('region') ?? '') as Region;
-  regionSeleccionada = linkedSignal<Region | null>(() => this.parametroRegion ?? 'Europe');
+  parametroRegion = this.rutaActiva.snapshot.queryParamMap.get('region') ?? '';
+  regionSeleccionada = linkedSignal<Region | null>(() => validarRegionParametro(this.parametroRegion));
 
   recursoPaises = rxResource({
     request: () => ({ region: this.regionSeleccionada() }),
