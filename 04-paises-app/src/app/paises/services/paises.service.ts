@@ -14,6 +14,7 @@ export class PaisesService {
 
   private clienteHttp = inject(HttpClient);
   private cacheConsultaCapital = new Map<string, Pais[]>();
+  private cacheConsultaPais = new Map<string, Pais[]>();
 
   buscarPorCapital(texto: string) {
     texto = texto.toLocaleLowerCase();
@@ -21,8 +22,6 @@ export class PaisesService {
     if (this.cacheConsultaCapital.has(texto)) {
       return of(this.cacheConsultaCapital.get(texto) ?? []);
     }
-
-    console.log(`Consultando API por: ${texto}`);
 
     return this.clienteHttp
       .get<ElementoRestCountries[]>(`${API_URL}/capital/${texto}`)
@@ -39,10 +38,17 @@ export class PaisesService {
   buscarPorPais(texto: string) {
     texto = texto.toLocaleLowerCase();
 
+    if (this.cacheConsultaPais.has(texto)) {
+      return of(this.cacheConsultaPais.get(texto) ?? []);
+    }
+
+    console.log(`Consultando API por: ${texto}`);
+
     return this.clienteHttp
       .get<ElementoRestCountries[]>(`${API_URL}/name/${texto}`)
       .pipe(
         map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)),
+        tap(paises => this.cacheConsultaPais.set(texto, paises)),
         delay(2000),
         catchError(error => {
           console.log('Error: ', error);
