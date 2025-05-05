@@ -1,1 +1,8 @@
-<paises-lista [paises]="[]" />
+<div class="flex gap-2">
+  @for (region of regiones; track $index) {
+  <button class="btn" [class.btn-primary]="this.region() == region" (click)="this.region.set(region)">{{ region }}</button>
+  }
+</div>
+
+<paises-lista [paises]="recursoPaises.value() ?? []" [mensajeError]="recursoPaises.error()"
+  [vacio]="recursoPaises.value()?.length === 0" [cargando]="recursoPaises.isLoading()" />

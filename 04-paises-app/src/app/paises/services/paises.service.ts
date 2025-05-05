@@ -15,6 +15,7 @@ export class PaisesService {
   private clienteHttp = inject(HttpClient);
   private cacheConsultaCapital = new Map<string, Pais[]>();
   private cacheConsultaPais = new Map<string, Pais[]>();
+  private cacheConsultaRegion = new Map<string, Pais[]>();
 
   buscarPorCapital(texto: string) {
     texto = texto.toLocaleLowerCase();
@@ -66,6 +67,27 @@ export class PaisesService {
         catchError(error => {
           console.log('Error: ', error);
           return throwError(() => new Error(`No se encontró país con código: ${codigo}`));
+        })
+      );
+  }
+
+  buscarPaisPorRegion(region: string) {
+    region = region.toLocaleLowerCase();
+
+    if (this.cacheConsultaRegion.has(region)) {
+      return of(this.cacheConsultaRegion.get(region) ?? []);
+    }
+
+    console.log(`Consultando API por: ${region}`);
+
+    return this.clienteHttp
+      .get<ElementoRestCountries[]>(`${API_URL}/region/${region}`)
+      .pipe(
+        map((elementos) => PaisesMapper.mapearElementosRestCountriesAPaises(elementos)),
+        tap(paises => this.cacheConsultaRegion.set(region, paises)),
+        catchError(error => {
+          console.log('Error: ', error);
+          return throwError(() => new Error(`No se encontraron países en la región: ${region}`));
         })
       );
   }
