@@ -22,11 +22,11 @@ export default class PaginaPorRegionComponent {
     'Antarctic',
   ];
 
-  region = signal<string>('');
+  regionSeleccionada = signal<Region | null>(null);
   servicioPaises = inject(PaisesService);
 
   recursoPaises = rxResource({
-    request: () => ({ region: this.region() }),
+    request: () => ({ region: this.regionSeleccionada() }),
     loader: ({ request }) => {
       if (!request.region) return of([]);
       return this.servicioPaises.buscarPaisPorRegion(request.region);

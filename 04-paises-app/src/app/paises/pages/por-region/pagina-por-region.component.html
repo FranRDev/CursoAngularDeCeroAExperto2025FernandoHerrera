@@ -1,8 +1,16 @@
-<div class="flex gap-2">
-  @for (region of regiones; track $index) {
-  <button class="btn" [class.btn-primary]="this.region() == region" (click)="this.region.set(region)">{{ region }}</button>
-  }
-</div>
+<h1 class="text-2xl">Por región</h1>
+<h3 class="text-lg">Seleccione una región</h3>
+
+<section class="row mt-2">
+  <div class="flex gap-2">
+    @for (region of regiones; track region) {
+    <button class="btn btn-outline" [class.btn-primary]="regionSeleccionada() == region"
+      (click)="regionSeleccionada.set(region)">
+      {{ region }}
+    </button>
+    }
+  </div>
+</section>
 
 <paises-lista [paises]="recursoPaises.value() ?? []" [mensajeError]="recursoPaises.error()"
   [vacio]="recursoPaises.value()?.length === 0" [cargando]="recursoPaises.isLoading()" />

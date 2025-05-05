@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, delay, map, of, tap, throwError } from 'rxjs';
 
 import type { ElementoRestCountries } from '../interfaces/rest-countries.interfaces';
-import type { Pais } from '../interfaces/paises.interfaces';
+import type { Pais, Region } from '../interfaces/paises.interfaces';
 import { PaisesMapper } from '../mapping/paises.mapper';
 
 const API_URL = 'https://restcountries.com/v3.1';
@@ -15,7 +15,7 @@ export class PaisesService {
   private clienteHttp = inject(HttpClient);
   private cacheConsultaCapital = new Map<string, Pais[]>();
   private cacheConsultaPais = new Map<string, Pais[]>();
-  private cacheConsultaRegion = new Map<string, Pais[]>();
+  private cacheConsultaRegion = new Map<Region, Pais[]>();
 
   buscarPorCapital(texto: string) {
     texto = texto.toLocaleLowerCase();
@@ -43,8 +43,6 @@ export class PaisesService {
       return of(this.cacheConsultaPais.get(texto) ?? []);
     }
 
-    console.log(`Consultando API por: ${texto}`);
-
     return this.clienteHttp
       .get<ElementoRestCountries[]>(`${API_URL}/name/${texto}`)
       .pipe(
@@ -71,14 +69,10 @@ export class PaisesService {
       );
   }
 
-  buscarPaisPorRegion(region: string) {
-    region = region.toLocaleLowerCase();
-
+  buscarPaisPorRegion(region: Region) {
     if (this.cacheConsultaRegion.has(region)) {
       return of(this.cacheConsultaRegion.get(region) ?? []);
     }
-
-    console.log(`Consultando API por: ${region}`);
 
     return this.clienteHttp
       .get<ElementoRestCountries[]>(`${API_URL}/region/${region}`)
