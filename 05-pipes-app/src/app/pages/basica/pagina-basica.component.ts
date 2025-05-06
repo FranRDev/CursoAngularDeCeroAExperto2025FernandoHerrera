@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, LOCALE_ID, signal } from '@angular/core';
 import { DatePipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
+
+import { LocaleDisponibles, LocaleService } from '../../services/locale.service';
 
 @Component({
   selector: 'pagina-basica',
@@ -8,6 +10,9 @@ import { DatePipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class PaginaBasicaComponent {
+
+  servicioLocale = inject(LocaleService);
+  localeActual = signal(inject(LOCALE_ID));
 
   nombreMinusculas = signal('fran');
   nombreMayusculas = signal('FRAN');
@@ -25,5 +30,10 @@ export default class PaginaBasicaComponent {
       console.log('Efecto limpiado');
     });
   });
+
+  cambiarLocale(locale: LocaleDisponibles) {
+    console.log({ locale });
+    this.servicioLocale.cambiarLocale(locale);
+  }
 
 }
