@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 import { TarjetaComponent } from "../../components/tarjeta/tarjeta.component";
-import { I18nPluralPipe, I18nSelectPipe, SlicePipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, JsonPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 
 const cliente1 = {
   nombre: 'Fran',
@@ -19,7 +19,7 @@ const cliente2 = {
 
 @Component({
   selector: 'pagina-poco-comun',
-  imports: [TarjetaComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe],
+  imports: [TarjetaComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, UpperCasePipe],
   templateUrl: './pagina-poco-comun.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
