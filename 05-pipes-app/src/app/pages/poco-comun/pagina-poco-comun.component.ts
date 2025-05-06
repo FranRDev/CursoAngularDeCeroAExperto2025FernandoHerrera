@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 import { TarjetaComponent } from "../../components/tarjeta/tarjeta.component";
-import { I18nSelectPipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe } from '@angular/common';
 
 const cliente1 = {
   nombre: 'Fran',
@@ -19,7 +19,7 @@ const cliente2 = {
 
 @Component({
   selector: 'pagina-poco-comun',
-  imports: [TarjetaComponent, I18nSelectPipe],
+  imports: [TarjetaComponent, I18nSelectPipe, I18nPluralPipe],
   templateUrl: './pagina-poco-comun.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -40,6 +40,29 @@ export default class PaginaPocoComunComponent {
     }
 
     this.cliente.set(cliente1);
+  }
+
+  // i18n Plural
+  clientes = signal([
+    'María',
+    'Pedro',
+    'Juan',
+    'Ana',
+    'Luis',
+    'Laura',
+    'Javier',
+    'Cristina'
+  ])
+
+  mapaClientes = signal({
+    '=0': 'no hay clientes esperando',
+    '=1': 'hay un cliente esperando',
+    '=2': 'hay dos clientes esperando',
+    'other': 'hay # clientes esperando'
+  });
+
+  borrarCliente() {
+    this.clientes.update(clientes => clientes.slice(1));
   }
 
 }

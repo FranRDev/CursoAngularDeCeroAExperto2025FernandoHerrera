@@ -8,4 +8,9 @@
     <p>Saludos {{ cliente().nombre }}, es un placer {{ cliente().genero | i18nSelect : mapaInvitacion }} a nuestro evento</p>
     <button class="btn btn-primary" (click)="cambiarCliente()">Cambiar cliente</button>
   </tarjeta>
+
+  <tarjeta titulo="i18nPlural Pipe">
+    <p>Actualmente {{ clientes().length | i18nPlural : mapaClientes() }}</p>
+    <button class="btn btn-primary" (click)="borrarCliente()" [disabled]="clientes().length === 0">Borrar cliente lista de espera</button>
+  </tarjeta>
 </div>
