@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
+import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { TarjetaComponent } from "../../components/tarjeta/tarjeta.component";
-import { I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 
 const cliente1 = {
   nombre: 'Fran',
@@ -19,7 +19,17 @@ const cliente2 = {
 
 @Component({
   selector: 'pagina-poco-comun',
-  imports: [TarjetaComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, UpperCasePipe, KeyValuePipe, TitleCasePipe],
+  imports: [
+    AsyncPipe,
+    I18nPluralPipe,
+    I18nSelectPipe,
+    JsonPipe,
+    KeyValuePipe,
+    SlicePipe,
+    TarjetaComponent,
+    TitleCasePipe,
+    UpperCasePipe
+  ],
   templateUrl: './pagina-poco-comun.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -71,5 +81,14 @@ export default class PaginaPocoComunComponent {
     edad: 29,
     direccion: 'Alcalá de Guadaíra, España',
   }
+
+  // Async Pipe
+  valorPromesa: Promise<string> = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject('Error en la promesa');
+      // resolve('Hola desde una promesa');
+      console.log('Promesa finalizada');
+    }, 3500);
+  });
 
 }

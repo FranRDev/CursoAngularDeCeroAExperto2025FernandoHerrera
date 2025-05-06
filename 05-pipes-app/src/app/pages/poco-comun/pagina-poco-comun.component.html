@@ -53,4 +53,15 @@
       }
     </ul>
   </tarjeta>
+
+  <tarjeta titulo="Async Pipe">
+    <p>{{ valorPromesa | async }}</p>
+
+    @if (valorPromesa | async; as valor) {
+    <p class="text-primary">{{ valor }}</p>
+    }
+    @else {
+    <p class="text-accent">Espere por favor</p>
+    }
+  </tarjeta>
 </div>
