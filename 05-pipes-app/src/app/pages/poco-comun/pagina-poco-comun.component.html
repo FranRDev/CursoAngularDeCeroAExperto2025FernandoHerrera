@@ -5,7 +5,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
   <tarjeta titulo="i18nSelect Pipe">
-    <p>Hola mundo desde el padre</p>
-    <button class="btn btn-primary">Cliquéame</button>
+    <p>Saludos {{ cliente().nombre }}, es un placer {{ cliente().genero | i18nSelect : mapaInvitacion }} a nuestro evento</p>
+    <button class="btn btn-primary" (click)="cambiarCliente()">Cambiar cliente</button>
   </tarjeta>
 </div>
