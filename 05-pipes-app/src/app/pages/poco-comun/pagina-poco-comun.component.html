@@ -5,12 +5,34 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
   <tarjeta titulo="i18nSelect Pipe">
-    <p>Saludos {{ cliente().nombre }}, es un placer {{ cliente().genero | i18nSelect : mapaInvitacion }} a nuestro evento</p>
+    <p>Saludos {{ cliente().nombre }}, es un placer {{ cliente().genero | i18nSelect : mapaInvitacion }} a nuestro
+      evento</p>
     <button class="btn btn-primary" (click)="cambiarCliente()">Cambiar cliente</button>
   </tarjeta>
 
   <tarjeta titulo="i18nPlural Pipe">
     <p>Actualmente {{ clientes().length | i18nPlural : mapaClientes() }}</p>
-    <button class="btn btn-primary" (click)="borrarCliente()" [disabled]="clientes().length === 0">Borrar cliente lista de espera</button>
+    <button class="btn btn-primary" (click)="borrarCliente()" [disabled]="clientes().length === 0">Borrar cliente lista
+      de espera</button>
+  </tarjeta>
+
+  <tarjeta titulo="Slice Pipe">
+    <b>Original</b>
+    <p class="text-primary">{{ clientes().join(", ") }}</p>
+
+    <b class="mt-2">Slice: 0:2</b>
+    <p class="text-primary">{{ clientes() | slice : 0:2 }}</p>
+
+    <b class="mt-2">Slice: 1:2</b>
+    <p class="text-primary">{{ clientes() | slice : 1:2 }}</p>
+
+    <b class="mt-2">Slice: 1:3</b>
+    <p class="text-primary">{{ clientes() | slice : 1:3 }}</p>
+
+    <b class="mt-2">Slice: 3:4</b>
+    <p class="text-primary">{{ clientes() | slice : 3:4 }}</p>
+
+    <b class="mt-2">Slice: 0:-3</b>
+    <p class="text-primary">{{ clientes() | slice : 0:-3 }}</p>
   </tarjeta>
 </div>
