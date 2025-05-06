@@ -41,4 +41,16 @@
     <pre class="text-primary">{{ cliente() | json }}</pre>
     <p class="text-primary">{{ clientes().join(", ") | json | uppercase }}</p>
   </tarjeta>
+
+  <tarjeta titulo="KeyValue Pipe">
+    <!-- <pre>{{ perfil | keyvalue | json }}</pre> -->
+    <ul>
+      @for (elemento of perfil | keyvalue; track $index) {
+      <li>
+        <strong class="text-primary">{{ elemento.key | titlecase }}:</strong>
+        <span> {{ elemento.value }} </span>
+      </li>
+      }
+    </ul>
+  </tarjeta>
 </div>
