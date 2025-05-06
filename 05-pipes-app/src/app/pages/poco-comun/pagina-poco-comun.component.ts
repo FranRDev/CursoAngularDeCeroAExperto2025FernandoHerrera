@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { TarjetaComponent } from "../../components/tarjeta/tarjeta.component";
+import { interval, map, tap } from 'rxjs';
 
 const cliente1 = {
   nombre: 'Fran',
@@ -85,10 +86,15 @@ export default class PaginaPocoComunComponent {
   // Async Pipe
   valorPromesa: Promise<string> = new Promise((resolve, reject) => {
     setTimeout(() => {
-      reject('Error en la promesa');
-      // resolve('Hola desde una promesa');
+      // reject('Error en la promesa');
+      resolve('Hola desde una promesa');
       console.log('Promesa finalizada');
     }, 3500);
   });
+
+  temporizadorObservable = interval(2000).pipe(
+    map((valor) => valor + 1),
+    tap((valor) => console.log('tap:', valor))
+  );
 
 }

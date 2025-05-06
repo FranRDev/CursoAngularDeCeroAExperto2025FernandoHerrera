@@ -63,5 +63,16 @@
     @else {
     <p class="text-accent">Espere por favor</p>
     }
+
+    <h3 class="text-xl">Observable</h3>
+    <p>{{ temporizadorObservable | async }}</p>
+
+    @if (temporizadorObservable | async; as valor) {
+    <p class="text-primary">Valor: {{ valor }}</p>
+    }
+    @else {
+    <p class="text-accent">Espere primer valor</p>
+    }
+
   </tarjeta>
 </div>
