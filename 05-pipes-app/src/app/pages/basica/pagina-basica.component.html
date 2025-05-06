@@ -1,1 +1,24 @@
-<p>pagina-basica works!</p>,
+<section class="mx-5">
+  <h1 class="text-2xl font-bold">Pipes básicos</h1>
+  <h3 class="text-xl font-thin">Pipes incluidos en Angular</h3>
+</section>
+
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">LowerCase Pipe</div>
+    <div class="stat-value">{{ nombreMayusculas() | lowercase }}</div>
+    <div class="stat-desc">{{ nombreMayusculas() }}</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">UpperCase Pipe</div>
+    <div class="stat-value">{{ nombreMinusculas() | uppercase }}</div>
+    <div class="stat-desc">{{ nombreMinusculas() }}</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">TitleCase Pipe</div>
+    <div class="stat-value">{{ nombreCompleto() | titlecase }}</div>
+    <div class="stat-desc">{{ nombreCompleto() }}</div>
+  </div>
+</div>
