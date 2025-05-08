@@ -18,8 +18,14 @@
 <div class="divider my-2"></div>
 
 <section class="my-2">
-  <h1 class="text-2xl font-bold">Filtrando por: XXX - Ordenando por: {{ ordenarPor() }}</h1>
-  <div class="flex gap-2 justify-end w-full">
+  <h1 class="text-2xl font-bold">Filtrando por: {{ busqueda() }} - Ordenando por: {{ ordenarPor() }}</h1>
+
+  <div class="flex gap-2 justify-end w-full mt-2">
+    <input type="text" class="input input-bordered wfull max-w-xs mt-2" placeholder="Buscar héroe"
+      (input)="busqueda.set(entradaBusqueda.value)" #entradaBusqueda>
+
+    <div class="felx flex-1"></div>
+
     <button (click)="ordenarPor.set('nombre')" class="btn btn-primary">Por nombre</button>
     <button (click)="ordenarPor.set('vuela')" class="btn btn-accent">Por volar</button>
     <button (click)="ordenarPor.set('color')" class="btn btn-secondary">Por color</button>
@@ -39,7 +45,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (heroe of heroes() | ordenamiento : ordenarPor(); track heroe.id; let indice = $index) {
+      @for (heroe of heroes() | filtrado : busqueda() | ordenamiento : ordenarPor(); track heroe.id; let indice = $index) {
       <tr>
         <td>{{ indice + 1}}</td>
         <td>{{ heroe.nombre }}</td>
