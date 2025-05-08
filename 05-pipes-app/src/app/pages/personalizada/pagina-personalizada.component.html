@@ -4,4 +4,13 @@
 </section>
 
 <div class="stats stats-horizontal shadow w-full">
+  <div class="stat">
+    <div class="stat-title">ToggleCase Pipe'</div>
+    <div class="stat-value">{{ nombre() | togglecase : mayusculas() }}</div>
+    <div class="stat-desc">{{ nombre() }}</div>
+
+    <button class="btn btn-primary" (click)="mayusculas.set(!mayusculas())">
+      Cambiar mayúsculas / minúsculas
+    </button>
+  </div>
 </div>
