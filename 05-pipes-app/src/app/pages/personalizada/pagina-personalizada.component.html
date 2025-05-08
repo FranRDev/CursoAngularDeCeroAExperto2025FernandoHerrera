@@ -49,11 +49,15 @@
           </span>
         </td>
         <td>
-          <span class="text-xs w-44" [style.color]="heroe.color | color">
-            {{ heroe.color | color }}
+          <span class="text-xs w-44" [style.color]="heroe.color | colorhex">
+            {{ heroe.color | color | titlecase }}
           </span>
         </td>
-        <td>{{ heroe.creador }}</td>
+        <td>
+          <span class="text-xs w-44" [class.text-primary]="heroe.creador === 0" [class.text-accent]="heroe.creador === 1">
+            {{ heroe.creador | creador }}
+          </span>
+        </td>
       </tr>
       }
     </tbody>
