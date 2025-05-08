@@ -18,12 +18,12 @@
 <div class="divider my-2"></div>
 
 <section class="my-2">
-  <h1 class="text-2xl font-bold">Pipes personalizados en acción</h1>
+  <h1 class="text-2xl font-bold">Filtrando por: XXX - Ordenando por: {{ ordenarPor() }}</h1>
   <div class="flex gap-2 justify-end w-full">
-    <button class="btn btn-primary">Por nombre</button>
-    <button class="btn btn-accent">Por volar</button>
-    <button class="btn btn-secondary">Por color</button>
-    <button class="btn btn-info">Por creador</button>
+    <button (click)="ordenarPor.set('nombre')" class="btn btn-primary">Por nombre</button>
+    <button (click)="ordenarPor.set('vuela')" class="btn btn-accent">Por volar</button>
+    <button (click)="ordenarPor.set('color')" class="btn btn-secondary">Por color</button>
+    <button (click)="ordenarPor.set('creador')" class="btn btn-info">Por creador</button>
   </div>
 </section>
 
@@ -39,7 +39,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (heroe of heroes(); track heroe.id; let indice = $index) {
+      @for (heroe of heroes() | ordenamiento : ordenarPor(); track heroe.id; let indice = $index) {
       <tr>
         <td>{{ indice + 1}}</td>
         <td>{{ heroe.nombre }}</td>
@@ -54,7 +54,8 @@
           </span>
         </td>
         <td>
-          <span class="text-xs w-44" [class.text-primary]="heroe.creador === 0" [class.text-accent]="heroe.creador === 1">
+          <span class="text-xs w-44" [class.text-primary]="heroe.creador === 0"
+            [class.text-accent]="heroe.creador === 1">
             {{ heroe.creador | creador }}
           </span>
         </td>
