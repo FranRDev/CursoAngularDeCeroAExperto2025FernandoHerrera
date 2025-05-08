@@ -29,7 +29,6 @@
 
 <div class="overflow-x-auto w-full">
   <table class="table table-xs w-full">
-    <!-- head -->
     <thead>
       <tr>
         <th></th>
@@ -44,8 +43,16 @@
       <tr>
         <td>{{ indice + 1}}</td>
         <td>{{ heroe.nombre }}</td>
-        <td>{{ heroe.vuela }}</td>
-        <td>{{ heroe.color }}</td>
+        <td>
+          <span class="text-xs w-44" [class.text-success]="heroe.vuela" [class.text-accent]="!heroe.vuela">
+            {{ heroe.vuela | vuela }}
+          </span>
+        </td>
+        <td>
+          <span class="text-xs w-44" [style.color]="heroe.color | color">
+            {{ heroe.color | color }}
+          </span>
+        </td>
         <td>{{ heroe.creador }}</td>
       </tr>
       }

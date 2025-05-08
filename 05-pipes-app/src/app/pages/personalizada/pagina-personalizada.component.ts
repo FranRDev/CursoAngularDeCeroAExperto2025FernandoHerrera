@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
-import { ToggleCasePipe } from '../../pipes/toggle-case.pipe';
+import { ColorPipe } from '../../pipes/color.pipe';
 import { heroes } from '../../data/heroes.data';
+import { ToggleCasePipe } from '../../pipes/toggle-case.pipe';
+import { VuelaPipe } from '../../pipes/vuela.pipe';
 
 @Component({
   selector: 'pagina-personalizada',
-  imports: [ToggleCasePipe],
+  imports: [ToggleCasePipe, VuelaPipe, ColorPipe],
   templateUrl: './pagina-personalizada.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
