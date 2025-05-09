@@ -26,7 +26,7 @@ export class PaginaBasicosComponent {
   });
 
   esValido(campo: string): boolean | null {
-    return !!this.formulario.controls[campo].errors;
+    return !!this.formulario.controls[campo].errors && this.formulario.controls[campo].touched;
   }
 
   obtenerErrorCampo(campo: string): string | null {
@@ -48,6 +48,18 @@ export class PaginaBasicosComponent {
     }
 
     return null;
+  }
+
+  enviar() {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+
+    this.formulario.reset({
+      precio: 0,
+      existencias: 0
+    });
   }
 
 }

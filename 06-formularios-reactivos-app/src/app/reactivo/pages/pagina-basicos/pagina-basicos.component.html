@@ -3,14 +3,13 @@
 
 <div class="row">
   <div class="col">
+    <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="enviar()">
 
-    <form autocomplete="off" [formGroup]="formulario">
-
-      <!-- Campo de producto -->
+      <!-- Producto -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
-        <div class="col-sm-9">
 
+        <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="Nombre del producto" formControlName="nombre">
 
           @if (esValido('nombre')) {
@@ -21,30 +20,36 @@
         </div>
       </div>
 
-      <!-- Campo de producto -->
+      <!-- Precio -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Precio</label>
+
         <div class="col-sm-9">
           <input type="number" class="form-control" placeholder="Precio del producto" formControlName="precio">
+
+          @if (esValido('precio')) {
           <span class="form-text text-danger">
-            El precio debe de ser 0 o mayor
+            {{ obtenerErrorCampo('precio') }}
           </span>
+          }
         </div>
       </div>
 
-      <!-- Campo de existencias -->
+      <!-- Existencias -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Existencias</label>
+
         <div class="col-sm-9">
           <input type="number" class="form-control" placeholder="Existencias del producto"
             formControlName="existencias">
 
+          @if (esValido('existencias')) {
           <span class="form-text text-danger">
-            Las existencias deben de ser 0 o mayor
+            {{ obtenerErrorCampo('existencias') }}
           </span>
+          }
         </div>
       </div>
-
 
       <div class="row">
         <div class="col">
@@ -54,10 +59,7 @@
         </div>
       </div>
 
-
-
     </form>
-
   </div>
 </div>
 
