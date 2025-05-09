@@ -12,9 +12,9 @@
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="Nombre del producto" formControlName="nombre">
 
-          @if (esValido('nombre')) {
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'nombre')) {
           <span class="form-text text-danger">
-            {{ obtenerErrorCampo('nombre') }}
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'nombre') }}
           </span>
           }
         </div>
@@ -27,9 +27,9 @@
         <div class="col-sm-9">
           <input type="number" class="form-control" placeholder="Precio del producto" formControlName="precio">
 
-          @if (esValido('precio')) {
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'precio')) {
           <span class="form-text text-danger">
-            {{ obtenerErrorCampo('precio') }}
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'precio') }}
           </span>
           }
         </div>
@@ -43,9 +43,9 @@
           <input type="number" class="form-control" placeholder="Existencias del producto"
             formControlName="existencias">
 
-          @if (esValido('existencias')) {
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'existencias')) {
           <span class="form-text text-danger">
-            {{ obtenerErrorCampo('existencias') }}
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'existencias') }}
           </span>
           }
         </div>
