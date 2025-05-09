@@ -10,9 +10,9 @@
     <div class="col-sm-9">
       <input class="form-control" placeholder="Nombre de la persona" formControlName="nombre">
 
-      <span class="form-text text-danger">
-        error message
-      </span>
+      @if (utilidadesFormularios.comprobarCampoValido(formulario, 'nombre')) {
+      <span class="form-text text-danger">{{ utilidadesFormularios.obtenerErrorCampo(formulario, 'nombre') }}</span>
+      }
     </div>
   </div>
 
@@ -46,9 +46,9 @@
           </button>
         </div>
 
-        <span class="form-text text-danger">
-          Este campo es requerido
-        </span>
+        @if (utilidadesFormularios.comprobarCampoArrayValido(favoritos, indice)) {
+        <span class="form-text text-danger">{{ utilidadesFormularios.obtenerErrorCampoArray(favoritos, indice) }}</span>
+        }
       </div>
       }
     </div>

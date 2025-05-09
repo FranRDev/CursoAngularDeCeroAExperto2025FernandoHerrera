@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { UtilidadesFormularios } from '../../../utils/utilidades-formularios';
 
 @Component({
   imports: [ReactiveFormsModule, JsonPipe],
@@ -10,6 +11,8 @@ import { JsonPipe } from '@angular/common';
 export class PaginaDinamicosComponent {
 
   private fb = inject(FormBuilder);
+
+  utilidadesFormularios = UtilidadesFormularios;
 
   formulario: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3)]],

@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class UtilidadesFormularios {
 
@@ -6,11 +6,11 @@ export class UtilidadesFormularios {
     return !!formulario.controls[campo].errors && formulario.controls[campo].touched;
   }
 
-  static obtenerErrorCampo(formulario: FormGroup, campo: string): string | null {
-    if (!formulario.controls[campo]) return null;
+  static comprobarCampoArrayValido(array: FormArray, indice: number) {
+    return !!array.controls[indice].errors && array.controls[indice].touched;
+  }
 
-    const errores = formulario.controls[campo].errors ?? {};
-
+  private static obtenerError(errores: ValidationErrors): string | null {
     for (const key of Object.keys(errores)) {
       switch (key) {
         case 'required':
@@ -25,6 +25,18 @@ export class UtilidadesFormularios {
     }
 
     return null;
+  }
+
+  static obtenerErrorCampo(formulario: FormGroup, campo: string): string | null {
+    if (!formulario.controls[campo]) return null;
+    const errores = formulario.controls[campo].errors ?? {};
+    return UtilidadesFormularios.obtenerError(errores);
+  }
+
+  static obtenerErrorCampoArray(array: FormArray, indice: number): string | null {
+    if (!array.controls[indice]) return null;
+    const errores = array.controls[indice].errors ?? {};
+    return UtilidadesFormularios.obtenerError(errores);
   }
 
 }
