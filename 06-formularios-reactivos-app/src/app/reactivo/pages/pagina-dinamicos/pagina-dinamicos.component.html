@@ -1,7 +1,7 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr>
 
-<form autocomplete="off" [formGroup]="formulario">
+<form autocomplete="off" [formGroup]="formulario" (ngSubmit)="enviar()">
 
   <!-- Nombre -->
   <div class="mb-3 row">
@@ -16,17 +16,15 @@
     </div>
   </div>
 
-  <!-- Agregar Favorito -->
+  <!-- Añadir favorito -->
   <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label">Agregar</label>
+    <label class="col-sm-3 col-form-label">Añadir</label>
     <div class="col-sm-9">
 
       <div class="input-group">
-        <input class="form-control" placeholder="Agregar favorito">
-
-        <button class="btn btn-outline-primary" type="button">
-          Agregar favorito
-        </button>
+        <input class="form-control" placeholder="Agregar favorito" [formControl]="nuevoFavorito"
+          (keydown.enter)="anhadirFavorito()">
+        <button class="btn btn-outline-primary" type="button" (click)="anhadirFavorito()">Añadir favorito</button>
       </div>
     </div>
   </div>
@@ -41,15 +39,17 @@
         <div class="input-group">
           <input class="form-control" [formControlName]="indice">
 
-          <button class="btn btn-outline-danger" type="button">
-            Eliminar
-          </button>
+          <button class="btn btn-outline-danger" type="button" (click)="eliminarFavorito(indice)">Eliminar</button>
         </div>
 
         @if (utilidadesFormularios.comprobarCampoArrayValido(favoritos, indice)) {
         <span class="form-text text-danger">{{ utilidadesFormularios.obtenerErrorCampoArray(favoritos, indice) }}</span>
         }
       </div>
+      }
+
+      @if (utilidadesFormularios.comprobarCampoValido(formulario, 'favoritos')) {
+      <span class="form-text text-danger">Debe tener al menos 2 favoritos</span>
       }
     </div>
   </div>
@@ -74,5 +74,5 @@
 <br>
 
 <span>Agregar Juego</span>
-<!-- <pre>{{ formulario. | json }}</pre>
-<pre>{{ formulario. | json }}</pre> -->
+<pre>{{ formulario.controls['favoritos'].errors | json }}</pre>
+<pre>{{ formulario.controls['favoritos'].value | json }}</pre>

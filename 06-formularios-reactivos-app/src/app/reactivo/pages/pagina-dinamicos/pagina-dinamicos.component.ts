@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { UtilidadesFormularios } from '../../../utils/utilidades-formularios';
 
@@ -25,8 +25,25 @@ export class PaginaDinamicosComponent {
     )
   });
 
+  nuevoFavorito = new FormControl('', Validators.required);
+  // nuevoFavorito = this.fb.control([]);
+
   get favoritos() {
     return this.formulario.get('favoritos') as FormArray;
+  }
+
+  anhadirFavorito() {
+    if (this.nuevoFavorito.invalid) return;
+    this.favoritos.push(this.fb.control(this.nuevoFavorito.value, Validators.required));
+    this.nuevoFavorito.reset();
+  }
+
+  eliminarFavorito(indice: number) {
+    this.favoritos.removeAt(indice);
+  }
+
+  enviar() {
+    this.formulario.markAllAsTouched();
   }
 
 }
