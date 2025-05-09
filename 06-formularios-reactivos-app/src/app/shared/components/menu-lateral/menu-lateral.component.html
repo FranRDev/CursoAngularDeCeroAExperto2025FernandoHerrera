@@ -1,1 +1,32 @@
-<p>menu-lateral works!</p>
+<h2>Páginas</h2>
+<hr>
+
+<h3 class="mt-3">Reactivos</h3>
+
+<ul class="list-group">
+  @for (elemento of menuReactivo; track elemento.titulo) {
+  <li class="list-group-item" [routerLink]="elemento.ruta" routerLinkActive="active">
+    {{ elemento.titulo }}
+  </li>
+  }
+</ul>
+
+<h3 class="mt-3">Autenticación</h3>
+
+<ul class="list-group">
+  @for (elemento of menuAutenticacion; track elemento.titulo) {
+  <li class="list-group-item" [routerLink]="elemento.ruta" routerLinkActive="active">
+    {{ elemento.titulo }}
+  </li>
+  }
+</ul>
+
+<h3 class="mt-3">Países</h3>
+
+<ul class="list-group">
+  @for (elemento of menuPais; track elemento.titulo) {
+  <li class="list-group-item" [routerLink]="elemento.ruta" routerLinkActive="active">
+    {{ elemento.titulo }}
+  </li>
+  }
+</ul>

@@ -17,3 +17,5 @@ export const rutasAuenticacion: Routes = [
     ]
   }
 ]
+
+export default rutasAuenticacion;
