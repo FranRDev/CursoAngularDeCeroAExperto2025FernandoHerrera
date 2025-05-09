@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -20,9 +20,9 @@ export class PaginaBasicosComponent {
 
   fb = inject(FormBuilder);
   formulario = this.fb.group({
-    nombre: [''],
-    precio: [0],
-    existencias: [0]
+    nombre: ['', [Validators.required, Validators.minLength(3)]],
+    precio: [0, [Validators.required, Validators.min(10)]],
+    existencias: [0, [Validators.required, Validators.min(0)]]
   });
 
 }

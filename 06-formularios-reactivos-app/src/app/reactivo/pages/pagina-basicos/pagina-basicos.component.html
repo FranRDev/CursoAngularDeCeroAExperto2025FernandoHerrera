@@ -74,6 +74,15 @@
     <span>Value</span>
     <pre>{{ formulario.value | json }}</pre>
 
+    <span>Errores en nombre</span>
+    <pre>{{ formulario.controls.nombre.errors | json }}</pre>
+
+    <span>Errores en precio</span>
+    <pre>{{ formulario.controls.precio.errors | json }}</pre>
+
+    <span>Errores en existencias</span>
+    <pre>{{ formulario.controls.existencias.errors | json }}</pre>
+
     <span>Precio</span>
     <pre>{{ formulario.controls.precio.value | json }}</pre>
 
