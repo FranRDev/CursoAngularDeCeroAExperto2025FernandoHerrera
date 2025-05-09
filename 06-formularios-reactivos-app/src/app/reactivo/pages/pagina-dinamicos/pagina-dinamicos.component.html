@@ -23,7 +23,7 @@
 
       <div class="input-group">
         <input class="form-control" placeholder="Agregar favorito" [formControl]="nuevoFavorito"
-          (keydown.enter)="anhadirFavorito()">
+          (keydown.enter)="anhadirFavorito()" (keydown.enter)="$event.preventDefault()">
         <button class="btn btn-outline-primary" type="button" (click)="anhadirFavorito()">Añadir favorito</button>
       </div>
     </div>
