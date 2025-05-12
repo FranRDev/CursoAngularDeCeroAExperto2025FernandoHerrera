@@ -21,8 +21,9 @@ export class PaginaRegistroComponent {
     usuario: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.utilidadesFormularios.patronNoSoloEspacios)]],
     clave: ['', [Validators.required, Validators.minLength(6)]],
     repetirClave: ['', Validators.required],
+  }, {
+    validators: this.utilidadesFormularios.validarClavesIguales('clave', 'repetirClave')
   });
-
 
   enviar() {
     this.formulario.markAllAsTouched();

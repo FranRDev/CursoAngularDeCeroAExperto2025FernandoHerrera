@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class UtilidadesFormularios {
 
@@ -62,6 +62,14 @@ export class UtilidadesFormularios {
     if (!array.controls[indice]) return null;
     const errores = array.controls[indice].errors ?? {};
     return UtilidadesFormularios.obtenerError(errores);
+  }
+
+  static validarClavesIguales(clave1: string, clave2: string) {
+    return (grupoFormulario: AbstractControl) => {
+      const valorClave1 = grupoFormulario.get(clave1)?.value;
+      const valorClave2 = grupoFormulario.get(clave2)?.value;
+      return valorClave1 === valorClave2 ? null : { clavesNoIguales: true };
+    }
   }
 
 }
