@@ -2,6 +2,10 @@ import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class UtilidadesFormularios {
 
+  static patronCorreo = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static patronNombre = '^([a-zA-Z]+) ([a-zA-Z]+)$';
+  static patronNoSoloEspacios = '^[a-zA-Z0-9]+$';
+
   static comprobarCampoValido(formulario: FormGroup, campo: string): boolean | null {
     return !!formulario.controls[campo].errors && formulario.controls[campo].touched;
   }
@@ -16,14 +20,32 @@ export class UtilidadesFormularios {
         case 'email':
           return 'Correo inválido';
 
-        case 'required':
-          return 'Campo requerido';
-
         case 'min':
           return `Mínimo ${errores['min'].min}`;
 
         case 'minlength':
           return `Mínimo ${errores['minlength'].requiredLength} caracteres`;
+
+        case 'pattern':
+          switch (errores['pattern'].requiredPattern) {
+            case UtilidadesFormularios.patronCorreo:
+              return 'Correo inválido';
+
+            case UtilidadesFormularios.patronNombre:
+              return 'Nombre inválido';
+
+            case UtilidadesFormularios.patronNoSoloEspacios:
+              return 'No se permiten solo espacios';
+
+            default:
+              return 'Campo inválido';
+          }
+
+        case 'required':
+          return 'Campo requerido';
+
+        default:
+          return 'Campo inválido';
       }
     }
 
