@@ -33,6 +33,9 @@ export class UtilidadesFormularios {
         case 'minlength':
           return `Mínimo ${errores['minlength'].requiredLength} caracteres`;
 
+        case 'noPepe':
+          return 'El nombre Pepe no está disponible';
+
         case 'pattern':
           switch (errores['pattern'].requiredPattern) {
             case UtilidadesFormularios.patronCorreo:
@@ -85,6 +88,12 @@ export class UtilidadesFormularios {
     await dormir();
     const valor = control.value;
     if (valor === 'hola@mundo.com') { return { correoEnUso: true } }
+    return null;
+  }
+
+  static noPepe(control: AbstractControl): ValidationErrors | null {
+    const valor = control.value;
+    if (valor === 'pepe') { return { noPepe: true } }
     return null;
   }
 
