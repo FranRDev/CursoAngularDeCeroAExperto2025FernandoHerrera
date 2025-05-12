@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Pais } from '../interfaces/paises.interfaces';
 
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PaisesService {
@@ -17,7 +17,6 @@ export class PaisesService {
 
   obtenerPaisesPorRegion(region: string): Observable<Pais[]> {
     if (!region) return of([]);
-    console.log({region});
     const url = `${this.urlBase}/region/${region}?fields=cca3,name,borders`;
     return this.clienteHttp.get<Pais[]>(url);
   }
@@ -27,8 +26,11 @@ export class PaisesService {
     return this.clienteHttp.get<Pais>(url);
   }
 
-  // obtenerFronterasPorCodigo(fronteras: string[]) {
-  // TODO
-  // }
+  obtenerNombresPaisesPorCodigos(codigos: string[]): Observable<Pais[]> {
+    if (!codigos || codigos.length === 0) return of([]);
+    const solicitudesPaises: Observable<Pais>[] = [];
+    codigos.forEach(codigo => solicitudesPaises.push(this.obtenerPaisPorCodigoAlfa(codigo)));
+    return combineLatest(solicitudesPaises);
+  }
 
 }

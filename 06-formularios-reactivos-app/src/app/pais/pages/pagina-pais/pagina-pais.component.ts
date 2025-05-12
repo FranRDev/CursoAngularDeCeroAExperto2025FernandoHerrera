@@ -4,7 +4,7 @@ import { JsonPipe } from '@angular/common';
 
 import { Pais } from '../../interfaces/paises.interfaces';
 import { PaisesService } from '../../services/paises.service';
-import { switchMap, tap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 
 @Component({
   imports: [JsonPipe, ReactiveFormsModule],
@@ -28,20 +28,18 @@ export class PaginaPaisComponent {
 
   formularioCambiado = effect((limpieza) => {
     const regionCambiada = this.regionCambiada()
+    const paisCambiado = this.paisCambiado();
 
     limpieza(() => {
       regionCambiada.unsubscribe();
-      console.log('Limpiado');
+      paisCambiado.unsubscribe();
     })
   });
 
   regionCambiada() {
     return this.formulario.get('region')!.valueChanges
       .pipe(
-        tap(() => {
-          this.formulario.get('frontera')!.setValue('')
-          this.fronteras.set([]);
-        }),
+        tap(() => this.limpiarFronteras()),
         tap(() => {
           this.formulario.get('pais')!.setValue('')
           this.paises.set([]);
@@ -49,6 +47,22 @@ export class PaginaPaisComponent {
         switchMap(region => this.servicioPaises.obtenerPaisesPorRegion(region ?? ''))
       )
       .subscribe(paises => this.paises.set(paises));
+  }
+
+  private limpiarFronteras() {
+    this.formulario.get('frontera')!.setValue('');
+    this.fronteras.set([]);
+  }
+
+  paisCambiado() {
+    return this.formulario.get('pais')!.valueChanges
+      .pipe(
+        tap(() => this.limpiarFronteras()),
+        filter(valor => valor!.length > 0),
+        switchMap(codigo => this.servicioPaises.obtenerPaisPorCodigoAlfa(codigo ?? '')),
+        switchMap(pais => this.servicioPaises.obtenerNombresPaisesPorCodigos(pais.borders))
+      )
+      .subscribe(paisesFronterizos => console.log(paisesFronterizos));
   }
 
 }
