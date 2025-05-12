@@ -20,31 +20,30 @@
     </div>
   </div>
 
-  <!-- Countries -->
-
+  <!-- Países -->
   <div class="row mb-3">
     <div class="col">
       <label class="form-label">País:</label>
+
       <select class="form-control" formControlName="pais">
         <option value="">-- Seleccione País --</option>
 
-        <!-- <option [value]="country.cca3">
-          {{ country.name }}
-        </option> -->
-
+        @for (pais of paises(); track pais.cca3) {
+        <option [value]="pais.cca3">
+          {{ pais.name.common }}
+        </option>
+        }
       </select>
     </div>
   </div>
 
-
-  <!-- Countries -->
-
+  <!-- Fronteras -->
   <div class="row mb-3">
     <div class="col">
       <label class="form-label">Fronteras:</label>
+
       <select class="form-control" formControlName="frontera">
         <option value="">-- Seleccione la frontera --</option>
-
 
         <!-- <option [value]="country.cca3">
           {{ country.name }}
@@ -59,4 +58,5 @@
 <code>
   {{ formulario.value | json }}
 </code>
+
 <p>is form valid: {{ formulario.valid }}</p>
