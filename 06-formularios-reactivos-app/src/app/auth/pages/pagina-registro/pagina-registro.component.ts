@@ -17,7 +17,7 @@ export class PaginaRegistroComponent {
 
   formulario: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.pattern(this.utilidadesFormularios.patronNombre)]],
-    correo: ['', [Validators.required, Validators.pattern(this.utilidadesFormularios.patronCorreo)]],
+    correo: ['', [Validators.required, Validators.pattern(this.utilidadesFormularios.patronCorreo)], this.utilidadesFormularios.comprobandoRespuestaServidor],
     usuario: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.utilidadesFormularios.patronNoSoloEspacios)]],
     clave: ['', [Validators.required, Validators.minLength(6)]],
     repetirClave: ['', Validators.required],

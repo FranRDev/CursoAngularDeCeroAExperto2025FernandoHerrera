@@ -1,5 +1,9 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
+async function dormir() {
+  return new Promise(resolve => setTimeout(() => resolve(true), 2500));
+}
+
 export class UtilidadesFormularios {
 
   static patronCorreo = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
@@ -17,6 +21,9 @@ export class UtilidadesFormularios {
   private static obtenerError(errores: ValidationErrors): string | null {
     for (const key of Object.keys(errores)) {
       switch (key) {
+        case 'correoEnUso':
+          return 'El correo ya está en uso';
+
         case 'email':
           return 'Correo inválido';
 
@@ -70,6 +77,15 @@ export class UtilidadesFormularios {
       const valorClave2 = grupoFormulario.get(clave2)?.value;
       return valorClave1 === valorClave2 ? null : { clavesNoIguales: true };
     }
+  }
+
+  static async comprobandoRespuestaServidor(control: AbstractControl): Promise<ValidationErrors | null> {
+    console.log('Validando contra servidor...');
+
+    await dormir();
+    const valor = control.value;
+    if (valor === 'hola@mundo.com') { return { correoEnUso: true } }
+    return null;
   }
 
 }
