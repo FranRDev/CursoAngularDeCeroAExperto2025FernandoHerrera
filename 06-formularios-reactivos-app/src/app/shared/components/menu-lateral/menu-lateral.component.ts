@@ -21,7 +21,7 @@ export class MenuLateralComponent {
   menuReactivo: ElementoMenu[] = elementosReactivo
     .filter(elemento => elemento.path !== '**')
     .map(elemento => ({
-      titulo: `${elemento.path}`,
+      titulo: `${elemento.title}`,
       ruta: `reactivos/${elemento.path}`
     }));
 
