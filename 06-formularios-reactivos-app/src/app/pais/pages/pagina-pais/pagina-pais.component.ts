@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+
+import { filter, switchMap, tap } from 'rxjs';
 
 import { Pais } from '../../interfaces/paises.interfaces';
 import { PaisesService } from '../../services/paises.service';
-import { filter, switchMap, tap } from 'rxjs';
 
 @Component({
-  imports: [JsonPipe, ReactiveFormsModule],
-  templateUrl: './pagina-pais.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [JsonPipe, ReactiveFormsModule],
+  templateUrl: './pagina-pais.component.html'
 })
 export class PaginaPaisComponent {
 
   fb = inject(FormBuilder);
   servicioPaises = inject(PaisesService);
-
   regiones = signal(this.servicioPaises.regiones);
   paises = signal<Pais[]>([]);
   fronteras = signal<Pais[]>([]);
 
-  formulario = this.fb.group({
+  formulario: FormGroup = this.fb.group({
     region: ['', Validators.required],
     pais: ['', Validators.required],
     frontera: ['', Validators.required]
@@ -62,7 +62,7 @@ export class PaginaPaisComponent {
         switchMap(codigo => this.servicioPaises.obtenerPaisPorCodigoAlfa(codigo ?? '')),
         switchMap(pais => this.servicioPaises.obtenerNombresPaisesPorCodigos(pais.borders))
       )
-      .subscribe(paisesFronterizos => console.log(paisesFronterizos));
+      .subscribe(fronteras => this.fronteras.set(fronteras));
   }
 
 }
