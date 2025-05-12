@@ -13,14 +13,17 @@ export class UtilidadesFormularios {
   private static obtenerError(errores: ValidationErrors): string | null {
     for (const key of Object.keys(errores)) {
       switch (key) {
+        case 'email':
+          return 'Correo inválido';
+
         case 'required':
           return 'Campo requerido';
 
-        case 'minlength':
-          return `Mínimo ${errores['minlength'].requiredLength} caracteres`;
-
         case 'min':
           return `Mínimo ${errores['min'].min}`;
+
+        case 'minlength':
+          return `Mínimo ${errores['minlength'].requiredLength} caracteres`;
       }
     }
 

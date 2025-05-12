@@ -4,66 +4,103 @@
 <div class="row">
   <div class="col">
 
-    <form autocomplete="off">
+    <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="enviar()">
 
       <!-- Nombre -->
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Nombre y apellido</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Nombre del usuario">
 
-          <span class="form-text text-danger">
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Nombre del usuario" formControlName="nombre">
+
+          <!-- <span class="form-text text-danger">
             Debe de ser en formato de nombre y apellido
+          </span> -->
+
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'nombre')) {
+          <span class="form-text text-danger">
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'nombre') }}
           </span>
+          }
         </div>
       </div>
 
-      <!-- Email -->
+      <!-- Correo electrónico -->
       <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Email</label>
+        <label class="col-sm-3 col-form-label">Correo</label>
+
         <div class="col-sm-9">
-          <input type="email" class="form-control" placeholder="Email del usuario">
-          <span class="form-text text-danger">
+          <input type="email" class="form-control" placeholder="Correo del usuario" formControlName="correo">
+
+          <!-- <span class="form-text text-danger">
             mensaje de error del email
+          </span> -->
+
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'correo')) {
+          <span class="form-text text-danger">
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'correo') }}
           </span>
+          }
         </div>
       </div>
 
-      <!-- Username -->
+      <!-- Nombre de usuario -->
       <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Username</label>
+        <label class="col-sm-3 col-form-label">Nombre de usuario</label>
+
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Nombre código del usuario">
-          <span class="form-text text-danger">
+          <input type="text" class="form-control" placeholder="Nombre de usuario" formControlName="usuario">
+
+          <!-- <span class="form-text text-danger">
             El username no puede ser Strider
-          </span>
-        </div>
-      </div>
+          </span> -->
 
-      <!-- Password -->
-      <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Password</label>
-        <div class="col-sm-9">
-          <input type="password" class="form-control" placeholder="Password de su cuenta">
-
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'usuario')) {
           <span class="form-text text-danger">
-            La contraseña debe de ser mayor de 6 caracteres.
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'usuario') }}
           </span>
+          }
         </div>
       </div>
 
-      <!-- Password2 -->
+      <!-- Clave -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Clave</label>
+
+        <div class="col-sm-9">
+          <input type="password" class="form-control" placeholder="Password de su cuenta" formControlName="clave">
+
+          <!-- <span class="form-text text-danger">
+            La contraseña debe de ser mayor de 6 caracteres.
+          </span> -->
+
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'clave')) {
+          <span class="form-text text-danger">
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'clave') }}
+          </span>
+          }
+        </div>
+      </div>
+
+      <!-- Repetir clave -->
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Confirmar</label>
-        <div class="col-sm-9">
-          <input type="password" class="form-control" placeholder="Confirmar la contraseña">
 
-          <span class="form-text text-danger">
+        <div class="col-sm-9">
+          <input type="password" class="form-control" placeholder="Confirmar la contraseña"
+            formControlName="repetirClave">
+
+          <!-- <span class="form-text text-danger">
             Las contraseñas deben de ser iguales
+          </span> -->
+
+          @if (utilidadesFormularios.comprobarCampoValido(formulario, 'repetirClave')) {
+          <span class="form-text text-danger">
+            {{ utilidadesFormularios.obtenerErrorCampo(formulario, 'repetirClave') }}
           </span>
+          }
         </div>
       </div>
-
 
       <div class="row">
         <div class="col">
@@ -73,30 +110,36 @@
         </div>
       </div>
 
-
     </form>
   </div>
 </div>
 
-
 <h2>Form Valid: </h2>
+<pre>{{ formulario.valid | json }}</pre>
+
 <h2>Form Status: </h2>
+<pre>{{ formulario.status | json }}</pre>
+
 <h2>Form Pending: </h2>
-<h2>Form errors</h2>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ formulario.pending| json }}</pre>
+
+<h2>Form Errors</h2>
+<pre>{{ formulario.errors | json }}</pre>
+
+<h2>Form Value</h2>
+<pre>{{ formulario.value | json }}</pre>
 
 <h5>Nombre</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ formulario.controls['nombre'].errors | json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ formulario.controls['correo'].errors | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
-
+<pre>{{ formulario.controls['usuario'].errors | json }}</pre>
 
 <h5>Password</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ formulario.controls['clave'].errors | json }}</pre>
 
 <h5>Confirmar</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ formulario.controls['repetirClave'].errors | json }}</pre>
