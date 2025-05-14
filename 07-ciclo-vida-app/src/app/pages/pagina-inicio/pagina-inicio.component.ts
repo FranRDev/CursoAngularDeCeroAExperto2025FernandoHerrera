@@ -1,11 +1,12 @@
 import { afterNextRender, afterRender, Component, effect, signal } from '@angular/core';
+import { TituloComponent } from "../../components/titulo/titulo.component";
 
 const log = (...mensajes: string[]) => {
   console.log(`${mensajes[0]} %c${mensajes.slice(1).join(', ')}`, 'color: #bada55');
 }
 
 @Component({
-  imports: [],
+  imports: [TituloComponent],
   templateUrl: './pagina-inicio.component.html'
 })
 export default class PaginaInicioComponent {
@@ -16,11 +17,11 @@ export default class PaginaInicioComponent {
   constructor() {
     log('Constructor');
 
-    setTimeout(() => {
-      this.propiedadSenhal.set('Pepe Pérez');
-      // this.propiedadTradicional = 'Pepe Pérez';
-      log('Hecho');
-    }, 2000);
+    // setTimeout(() => {
+    //   this.propiedadSenhal.set('Pepe Pérez');
+    // this.propiedadTradicional = 'Pepe Pérez';
+    //   log('Hecho');
+    // }, 2000);
   }
 
   cambiarTradicional() {
