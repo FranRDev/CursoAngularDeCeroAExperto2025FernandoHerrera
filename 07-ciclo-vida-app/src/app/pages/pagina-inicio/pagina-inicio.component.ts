@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, afterRender, Component, effect } from '@angular/core';
 
 const log = (...mensajes: string[]) => {
   console.log(`${mensajes[0]} %c${mensajes.slice(1).join(', ')}`, 'color: #bada55');
@@ -13,6 +13,14 @@ export default class PaginaInicioComponent {
   constructor() {
     log('Constructor');
   }
+
+  efectoBasico = effect((limpieza) => {
+    log('efecto', 'Dispara efectos secundarios');
+
+    limpieza(() => {
+      log('limpieza', 'Se ejecuta cuando el efecto se va a destruir');
+    });
+  });
 
   ngOnInit() {
     log('ngOnInit', "Runs once after Angular has initialized all the component's inputs.");
@@ -41,5 +49,17 @@ export default class PaginaInicioComponent {
   ngAfterViewChecked() {
     log('ngAfterViewChecked', "Runs every time the component's view has been checked for changes.");
   }
+
+  ngOnDestroy() {
+    log('ngOnDestroy', 'Runs once before the component is destroyed.');
+  }
+
+  efectoAfterNextRender = afterNextRender(() => {
+    log('afterNextRender', 'Runs once the next time that all components have been rendered to the DOM.');
+  });
+
+  efectoAfterRender = afterRender(() => {
+    log('afterRender', 'Runs every time all components have been rendered to the DOM.');
+  });
 
 }
