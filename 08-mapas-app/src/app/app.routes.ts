@@ -13,7 +13,8 @@ export const routes: Routes = [
   },
   {
     path: 'casas',
-    loadComponent: () => import('./pages/pagina-casas/pagina-casas.component')
+    loadComponent: () => import('./pages/pagina-casas/pagina-casas.component'),
+    title: 'Propiedades disponibles'
   },
   {
     path: '**',
