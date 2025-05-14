@@ -1,4 +1,4 @@
-import { afterNextRender, afterRender, Component, effect } from '@angular/core';
+import { afterNextRender, afterRender, Component, effect, signal } from '@angular/core';
 
 const log = (...mensajes: string[]) => {
   console.log(`${mensajes[0]} %c${mensajes.slice(1).join(', ')}`, 'color: #bada55');
@@ -10,8 +10,25 @@ const log = (...mensajes: string[]) => {
 })
 export default class PaginaInicioComponent {
 
+  propiedadTradicional = 'Fran';
+  propiedadSenhal = signal('Fran');
+
   constructor() {
     log('Constructor');
+
+    setTimeout(() => {
+      this.propiedadSenhal.set('Pepe Pérez');
+      // this.propiedadTradicional = 'Pepe Pérez';
+      log('Hecho');
+    }, 2000);
+  }
+
+  cambiarTradicional() {
+    this.propiedadTradicional = 'Fran Rodríguez';
+  }
+
+  cambiarSenhal() {
+    this.propiedadSenhal.set('Fran Rodríguez');
   }
 
   efectoBasico = effect((limpieza) => {
