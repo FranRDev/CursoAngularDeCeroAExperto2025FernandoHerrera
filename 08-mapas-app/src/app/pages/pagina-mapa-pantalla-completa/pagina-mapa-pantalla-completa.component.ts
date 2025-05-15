@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, effect, ElementRef, signal, viewChild } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 
 import mapboxgl from 'mapbox-gl'; // o "const mapboxgl = require('mapbox-gl');"
 
@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 mapboxgl.accessToken = environment.mapBoxToken;
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, JsonPipe],
   templateUrl: './pagina-mapa-pantalla-completa.component.html',
   styles: `
     div {
@@ -35,10 +35,13 @@ export default class PaginaMapaPantallaCompletaComponent implements AfterViewIni
   elementoDiv = viewChild<ElementRef>('mapa')
   mapa = signal<mapboxgl.Map | null>(null);
   zoom = signal(14);
+  coordenadas = signal({
+    lng: -74.5,
+    lat: 40
+  });
 
   efectoZoom = effect(() => {
     if (!this.mapa) return;
-
     // this.mapa()?.setZoom(this.zoom());
     this.mapa()?.zoomTo(this.zoom());
   });
@@ -46,11 +49,12 @@ export default class PaginaMapaPantallaCompletaComponent implements AfterViewIni
   ngAfterViewInit(): void {
     if (!this.elementoDiv()?.nativeElement) return;
     const elemento = this.elementoDiv()!.nativeElement;
+    const { lng, lat } = this.coordenadas();
 
     const mapa = new mapboxgl.Map({
       container: elemento, // contenedor
       style: 'mapbox://styles/mapbox/streets-v12', // URL estilos
-      center: [-74.5, 40], // posición inicial [lng, lat]
+      center: [lng, lat], // posición inicial [lng, lat]
       zoom: this.zoom(), // zoom inicial
     });
 
@@ -62,6 +66,11 @@ export default class PaginaMapaPantallaCompletaComponent implements AfterViewIni
       const nuevoZoom = evento?.target.getZoom();
       this.zoom.set(nuevoZoom);
     })
+
+    mapa.on('moveend', () => {
+      const centro = mapa.getCenter();
+      this.coordenadas.set(centro);
+    });
 
     this.mapa.set(mapa);
   }

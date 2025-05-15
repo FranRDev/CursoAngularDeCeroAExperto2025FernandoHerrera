@@ -1,6 +1,7 @@
 <div #mapa></div>
 
 <section id="controles">
+
   <h2 class="text-2xl font-bold text-black mb-2">
     Zoom
     <small class="text-gray-500 font-normal">
@@ -9,4 +10,15 @@
   </h2>
 
   <input type="range" min="0" max="22" [value]="zoom()" class="range range-secondary" (input)="zoom.set(+inputZoom.value)" #inputZoom />
+
+  <h2 class="text-2xl font-bold text-black mb-2">Coordenadas</h2>
+
+  <pre class="text-sm text-gray-500 font-normal">{{
+      {
+        lat: coordenadas().lat | number : '1.4-4',
+        lng: coordenadas().lng | number : '1.4-4'
+      } | json
+    }}
+  </pre>
+
 </section>
