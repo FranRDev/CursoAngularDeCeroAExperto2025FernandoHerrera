@@ -72,6 +72,14 @@ export default class PaginaMapaPantallaCompletaComponent implements AfterViewIni
       this.coordenadas.set(centro);
     });
 
+    mapa.on('load', (() => {
+      console.log('Mapa cargado');
+    }));
+
+    mapa.addControl(new mapboxgl.FullscreenControl());
+    mapa.addControl(new mapboxgl.NavigationControl());
+    mapa.addControl(new mapboxgl.ScaleControl());
+
     this.mapa.set(mapa);
   }
 
