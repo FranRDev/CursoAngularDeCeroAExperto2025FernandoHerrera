@@ -63,3 +63,4 @@ For more information on using the Angular CLI, including detailed command refere
 1. Clonar repositorio
 2. Instalar dependencias
 3. Generar .env basado en .env.template
+4. Ejecutar comando `npm run set-envs`
