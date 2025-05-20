@@ -81,4 +81,13 @@ export default class PaginaMarcadoresComponent implements AfterViewInit {
     });
   }
 
+  eliminarMarcador(marcador: Marcador) {
+    if (!this.mapa()) return;
+
+    const mapa = this.mapa();
+    marcador.marcadorMapBox.remove();
+
+    this.marcadores.set(this.marcadores().filter(m => m.id !== marcador.id));
+  }
+
 }
