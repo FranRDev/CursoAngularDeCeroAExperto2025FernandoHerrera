@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
 
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { v4 as UUIDv4 } from 'uuid';
 
 import { environment } from '../../../environments/environment';
+import { JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapBoxToken;
 
@@ -13,7 +14,7 @@ interface Marcador {
 };
 
 @Component({
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './pagina-marcadores.component.html',
 })
 export default class PaginaMarcadoresComponent implements AfterViewInit {
@@ -70,6 +71,14 @@ export default class PaginaMarcadoresComponent implements AfterViewInit {
 
   private generarColorHexAleatorio(): string {
     return '#xxxxxx'.replace(/x/g, () => ((Math.random() * 16) | 0).toString(16));
+  }
+
+  volarAlMarcador(lngLat: LngLatLike) {
+    if (!this.mapa()) return;
+
+    this.mapa()?.flyTo({
+      center: lngLat
+    });
   }
 
 }
