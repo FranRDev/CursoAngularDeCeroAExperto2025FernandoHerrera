@@ -12,7 +12,7 @@ mapboxgl.accessToken = environment.mapBoxToken;
   templateUrl: './mini-mapa.component.html',
   styles: `
     div {
-      width: 100vw;
+      width: 100%;
       height: 260px;
     }
   `
@@ -20,28 +20,22 @@ mapboxgl.accessToken = environment.mapBoxToken;
 export class MiniMapaComponent implements AfterViewInit {
 
   elementoDiv = viewChild<ElementRef>('mapa')
-  mapa = signal<mapboxgl.Map | null>(null);
-  lngLat = input<LngLatLike>();
+  lngLat = input.required<LngLatLike>();
+  zoom = input<number>(14);
 
   ngAfterViewInit(): void {
     if (!this.elementoDiv()?.nativeElement) return;
-    const elemento = this.elementoDiv()!.nativeElement;
 
     const mapa = new mapboxgl.Map({
-      container: elemento,
+      container: this.elementoDiv()!.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: this.lngLat() ?? [-122.409850, 37.793085],
-      zoom: 14
+      center: this.lngLat(),
+      zoom: this.zoom(),
+      interactive: false,
+      pitch: 30
     });
 
-    if (this.lngLat()) {
-      const marcador = new mapboxgl.Marker({
-        draggable: false,
-        color: 'red'
-      })
-        .setLngLat(this.lngLat()!)
-        .addTo(mapa);
-    }
+    new mapboxgl.Marker().setLngLat(this.lngLat()!).addTo(mapa);
   }
 
 }
