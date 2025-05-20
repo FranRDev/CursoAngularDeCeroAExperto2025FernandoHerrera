@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
+import { JsonPipe } from '@angular/common';
 
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { v4 as UUIDv4 } from 'uuid';
 
 import { environment } from '../../../environments/environment';
-import { JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapBoxToken;
 
