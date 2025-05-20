@@ -1,11 +1,22 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: night --default
-};
 @theme {
   --font-montserrat: "Montserrat", "sans-serif";
+
+  --animate-fade-in: fade-in 0.3s ease-in-out;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 @font-face {
   font-family: "Montserrat";
   src: url("/assets/fonts/montserrat/montserrat-medium.ttf") format("truetype");
+}
+@plugin "daisyui" {
+  themes: night --default
 }
