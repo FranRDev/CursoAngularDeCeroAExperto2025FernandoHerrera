@@ -2,8 +2,8 @@ import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SlicePipe } from '@angular/common';
 
-import { Product } from '@productos/interfaces/productos.interface';
 import { ImagenProductoPipe } from '@productos/pipes/imagen-producto.pipe';
+import { Product } from '@productos/interfaces/productos.interface';
 
 @Component({
   selector: 'tarjeta-producto',
