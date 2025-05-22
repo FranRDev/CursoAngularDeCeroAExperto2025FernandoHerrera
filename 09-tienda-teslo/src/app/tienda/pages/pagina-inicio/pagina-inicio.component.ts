@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { TarjetaProductoComponent } from "../../../productos/components/tarjeta-producto/tarjeta-producto.component";
+
+import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto/tarjeta-producto.component';
+
+// import { TarjetaProductoComponent } from '@/productos/components/tarjeta-producto/tarjeta-producto.component';
+// import { TarjetaProductoComponent } from "../../../productos/components/tarjeta-producto/tarjeta-producto.component";
 
 @Component({
   imports: [TarjetaProductoComponent],
