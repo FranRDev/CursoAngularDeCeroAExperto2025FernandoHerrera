@@ -19,7 +19,7 @@ export default class PaginaInicioComponent {
   recursoProductos = rxResource({
     request: () => ({}),
     loader: () => {
-      return this.servicioProductos.obtenerProductos({ limite: 5, genero: 'women' });
+      return this.servicioProductos.obtenerProductos({});
     }
   });
 

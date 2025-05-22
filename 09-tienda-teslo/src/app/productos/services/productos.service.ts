@@ -20,15 +20,11 @@ export class ServicioProductosService {
   private clienteHttp = inject(HttpClient);
 
   obtenerProductos(opciones: Opciones): Observable<ProductsResponse> {
-    const { limite = 9, salto = 0, genero = ''} = opciones;
+    const { limite = 9, salto = 0, genero = '' } = opciones;
 
     return this.clienteHttp
       .get<ProductsResponse>(`${urlBase}/products`, {
-        params: {
-          limit: limite,
-          offset: salto,
-          gender: genero
-        }
+        params: { limit: limite, offset: salto, gender: genero }
       })
       .pipe(
         tap(respuesta => console.log(respuesta))
