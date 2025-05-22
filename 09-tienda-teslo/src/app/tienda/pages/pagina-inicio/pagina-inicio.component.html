@@ -3,6 +3,9 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-2 gap-3">
   @for (producto of recursoProductos.value()?.products; track producto.id) {
-  <tarjeta-producto [titulo]="producto.title" [descripcion]="producto.description" [nombreImagen]="producto.images[0]" />
+  <tarjeta-producto [producto]="producto" />
+  }
+  @empty {
+    <p>No hay productos</p>
   }
 </div>
