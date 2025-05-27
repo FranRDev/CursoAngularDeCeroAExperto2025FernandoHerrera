@@ -4,9 +4,10 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 import { ImagenProductoPipe } from '@productos/pipes/imagen-producto.pipe';
 import { ServicioProductosService } from '@productos/services/productos.service';
+import { CarruselProductoComponent } from "../../../productos/components/carrusel-producto/carrusel-producto.component";
 
 @Component({
-  imports: [ImagenProductoPipe],
+  imports: [ImagenProductoPipe, CarruselProductoComponent],
   templateUrl: './pagina-producto.component.html',
 })
 export default class PaginaProductoComponent {
