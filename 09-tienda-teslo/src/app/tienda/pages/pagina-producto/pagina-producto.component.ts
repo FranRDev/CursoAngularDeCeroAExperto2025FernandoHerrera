@@ -2,12 +2,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
-import { ImagenProductoPipe } from '@productos/pipes/imagen-producto.pipe';
-import { ServicioProductosService } from '@productos/services/productos.service';
 import { CarruselProductoComponent } from "../../../productos/components/carrusel-producto/carrusel-producto.component";
+import { ServicioProductosService } from '@productos/services/productos.service';
 
 @Component({
-  imports: [ImagenProductoPipe, CarruselProductoComponent],
+  imports: [CarruselProductoComponent],
   templateUrl: './pagina-producto.component.html',
 })
 export default class PaginaProductoComponent {
