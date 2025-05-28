@@ -1,12 +1,10 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, inject } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop'
-
-import { map } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop'
 
 import { PaginadorComponent } from '@shared/components/paginador/paginador.component';
 import { ServicioProductosService } from '@productos/services/productos.service';
 import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto/tarjeta-producto.component';
+import { PaginacionService } from '@shared/components/paginador/paginador.service';
 
 // import { TarjetaProductoComponent } from '@/productos/components/tarjeta-producto/tarjeta-producto.component';
 // import { TarjetaProductoComponent } from "../../../productos/components/tarjeta-producto/tarjeta-producto.component";
@@ -18,20 +16,22 @@ import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto
 export default class PaginaInicioComponent {
 
   servicioProductos = inject(ServicioProductosService);
-  rutaActiva = inject(ActivatedRoute);
+  servicioPaginacion = inject(PaginacionService);
 
-  paginaActual = toSignal(
-    this.rutaActiva.queryParamMap.pipe(
-      map(parametros => parametros.get('pagina') ? +parametros.get('pagina')! : 1),
-      map(pagina => isNaN(pagina) ? 1 : pagina)
-    ),
-    {
-      initialValue: 1
-    }
-  );
+  // rutaActiva = inject(ActivatedRoute);
+
+  // paginaActual = toSignal(
+  //   this.rutaActiva.queryParamMap.pipe(
+  //     map(parametros => parametros.get('pagina') ? +parametros.get('pagina')! : 1),
+  //     map(pagina => isNaN(pagina) ? 1 : pagina)
+  //   ),
+  //   {
+  //     initialValue: 1
+  //   }
+  // );
 
   recursoProductos = rxResource({
-    request: () => ({ pagina: this.paginaActual() - 1 }),
+    request: () => ({ pagina: this.servicioPaginacion.paginaActual() - 1 }),
     loader: ({ request }) => {
       return this.servicioProductos.obtenerProductos({
         salto: request.pagina * 9

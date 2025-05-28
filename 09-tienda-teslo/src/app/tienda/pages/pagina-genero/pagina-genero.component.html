@@ -12,3 +12,5 @@
     <p>No hay productos</p>
   }
 </div>
+
+<paginador [paginas]="recursoProductos.value()?.pages ?? 0" [paginaActual]="servicioPaginacion.paginaActual()" />
