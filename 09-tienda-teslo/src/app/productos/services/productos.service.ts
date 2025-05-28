@@ -20,6 +20,7 @@ export class ServicioProductosService {
   private clienteHttp = inject(HttpClient);
 
   private cacheProductos = new Map<string, ProductsResponse>();
+  private cacheProducto = new Map<string, Product>();
 
   obtenerProductos(opciones: Opciones): Observable<ProductsResponse> {
     const { limite = 9, salto = 0, genero = '' } = opciones;
@@ -33,7 +34,11 @@ export class ServicioProductosService {
   }
 
   obtenerProducto(idOSlug: string): Observable<Product> {
-    return this.clienteHttp.get<Product>(`${urlBase}/products/${idOSlug}`);
+    if (this.cacheProducto.has(idOSlug)) { return of(this.cacheProducto.get(idOSlug)!); }
+
+    return this.clienteHttp
+      .get<Product>(`${urlBase}/products/${idOSlug}`)
+      .pipe(tap(respuesta => this.cacheProducto.set(idOSlug, respuesta)));
   }
 
 }
