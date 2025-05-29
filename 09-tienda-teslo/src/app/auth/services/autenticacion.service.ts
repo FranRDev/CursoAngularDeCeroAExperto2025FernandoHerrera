@@ -54,6 +54,13 @@ export class AutenticacionService {
       );
   }
 
+  cerrarSesion() {
+    this._usuario.set(null);
+    this._token.set(null);
+    this._estadoAutenticacion.set('no-autenticado');
+    localStorage.removeItem('token');
+  }
+
   private manejarAutenticacionCorrecta({ user, token }: RespuestaAuth) {
     this._usuario.set(user);
     this._token.set(token);
@@ -63,10 +70,7 @@ export class AutenticacionService {
   }
 
   private manejarAutenticacionErronea() {
-    this._usuario.set(null);
-    this._token.set(null);
-    this._estadoAutenticacion.set('no-autenticado');
-    localStorage.removeItem('token');
+    this.cerrarSesion();
     return of(false);
   }
 

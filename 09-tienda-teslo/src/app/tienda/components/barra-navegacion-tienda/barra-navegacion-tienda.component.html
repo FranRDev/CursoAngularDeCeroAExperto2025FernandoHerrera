@@ -41,8 +41,19 @@
     </ul>
   </div>
 
-  <div class="navbar-end">
-    <a class="btn">Button</a>
+  <div class="navbar-end gap-4">
+    @if (servicioAutenticacion.estadoAutenticacion() === 'autenticado') {
+    <button class="btn btn-ghost">{{ servicioAutenticacion.usuario()?.fullName }}</button>
+    <button class="btn btn-sm btn-error" (click)="servicioAutenticacion.cerrarSesion()">Salir</button>
+    }
+
+    @else if (servicioAutenticacion.estadoAutenticacion() === 'no-autenticado') {
+    <a routerLink="/autenticacion/iniciar-sesion" class="btn btn-secondary">Iniciar sesión</a>
+    }
+
+    @else {
+    <a class="btn btn-ghost">...</a>
+    }
   </div>
 
 </div>
