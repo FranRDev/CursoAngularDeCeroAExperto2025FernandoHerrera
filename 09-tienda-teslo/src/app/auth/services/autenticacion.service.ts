@@ -37,43 +37,37 @@ export class AutenticacionService {
     return this.clienteHttp
       .post<RespuestaAuth>(`${urlBase}/auth/login`, { email: correo, password: clave })
       .pipe(
-        tap(respuesta => {
-          this._usuario.set(respuesta.user);
-          this._token.set(respuesta.token);
-          localStorage.setItem('token', respuesta.token);
-          this._estadoAutenticacion.set('autenticado');
-        }),
-        map(() => true),
-        catchError(() => {
-          this._usuario.set(null);
-          this._token.set(null);
-          this._estadoAutenticacion.set('no-autenticado');
-          return of(false);
-        })
+        map(respuesta => this.manejarAutenticacionCorrecta(respuesta)),
+        catchError(() => this.manejarAutenticacionErronea())
       );
   }
 
   comprobarEstado(): Observable<boolean> {
     const token = localStorage.getItem('token');
-    if (!token) return of(false);
+    if (!token) { return this.manejarAutenticacionErronea(); }
 
     return this.clienteHttp
       .get<RespuestaAuth>(`${urlBase}/auth/check-status`, { headers: { Authorization: `Bearer ${token}` } })
       .pipe(
-        tap(respuesta => {
-          this._usuario.set(respuesta.user);
-          this._token.set(respuesta.token);
-          localStorage.setItem('token', respuesta.token);
-          this._estadoAutenticacion.set('autenticado');
-        }),
-        map(() => true),
-        catchError(() => {
-          this._usuario.set(null);
-          this._token.set(null);
-          this._estadoAutenticacion.set('no-autenticado');
-          return of(false);
-        })
+        map(respuesta => this.manejarAutenticacionCorrecta(respuesta)),
+        catchError(() => this.manejarAutenticacionErronea())
       );
+  }
+
+  private manejarAutenticacionCorrecta({ user, token }: RespuestaAuth) {
+    this._usuario.set(user);
+    this._token.set(token);
+    localStorage.setItem('token', token);
+    this._estadoAutenticacion.set('autenticado');
+    return true;
+  }
+
+  private manejarAutenticacionErronea() {
+    this._usuario.set(null);
+    this._token.set(null);
+    this._estadoAutenticacion.set('no-autenticado');
+    localStorage.removeItem('token');
+    return of(false);
   }
 
 }
