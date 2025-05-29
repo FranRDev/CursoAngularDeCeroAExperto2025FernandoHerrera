@@ -1,12 +1,17 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
+import { RespuestaAuth } from '@auth/interfaces/respuesta-auth.interfce';
 import { User } from '@auth/interfaces/usuario.interface';
+import { tap } from 'rxjs';
 
 type EstadoAutenticacion = 'comprobando' | 'autenticado' | 'no-autenticado';
 
+const urlBase = environment.urlBase;
+
 @Injectable({ providedIn: 'root' })
-export class ServicioAutenticacionService {
+export class AutenticacionService {
 
   private _estadoAutenticacion = signal<EstadoAutenticacion>('comprobando');
   private _usuario = signal<User | null>(null);
@@ -22,5 +27,18 @@ export class ServicioAutenticacionService {
 
   usuario = computed(() => this._usuario());
   token = computed(() => this._token());
+
+  iniciarSesion(correo: string, clave: string) {
+    return this.clienteHttp
+      .post<RespuestaAuth>(`${urlBase}/auth/login`, { email: correo, password: clave })
+      .pipe(
+        tap(respuesta => {
+          this._usuario.set(respuesta.user);
+          this._token.set(respuesta.token);
+          localStorage.setItem('token', respuesta.token);
+          this._estadoAutenticacion.set('autenticado');
+        })
+      );
+  }
 
 }

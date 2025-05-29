@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AutenticacionService } from '@auth/services/autenticacion.service';
 
 @Component({
   imports: [RouterLink, ReactiveFormsModule],
@@ -8,6 +9,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './pagina-iniciar-sesion.component.html'
 })
 export default class PaginaIniciarSesionComponent {
+
+  servicioAutenticacion = inject(AutenticacionService);
 
   fb = inject(FormBuilder);
   tieneError = signal(false);
@@ -30,7 +33,8 @@ export default class PaginaIniciarSesionComponent {
     }
 
     const { correo, clave } = this.formulario.value;
-    console.log({ correo, clave });
+
+    this.servicioAutenticacion.iniciarSesion(correo!, clave!).subscribe(respuesta => console.log(respuesta));
   }
 
 }
