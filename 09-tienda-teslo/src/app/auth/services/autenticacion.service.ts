@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RespuestaAuth } from '@auth/interfaces/respuesta-auth.interfce';
 import { User } from '@auth/interfaces/usuario.interface';
-import { tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 
 type EstadoAutenticacion = 'comprobando' | 'autenticado' | 'no-autenticado';
 
@@ -28,7 +28,7 @@ export class AutenticacionService {
   usuario = computed(() => this._usuario());
   token = computed(() => this._token());
 
-  iniciarSesion(correo: string, clave: string) {
+  iniciarSesion(correo: string, clave: string) : Observable<boolean> {
     return this.clienteHttp
       .post<RespuestaAuth>(`${urlBase}/auth/login`, { email: correo, password: clave })
       .pipe(
@@ -37,6 +37,13 @@ export class AutenticacionService {
           this._token.set(respuesta.token);
           localStorage.setItem('token', respuesta.token);
           this._estadoAutenticacion.set('autenticado');
+        }),
+        map(() => true),
+        catchError(() => {
+          this._usuario.set(null);
+          this._token.set(null);
+          this._estadoAutenticacion.set('no-autenticado');
+          return of(false);
         })
       );
   }

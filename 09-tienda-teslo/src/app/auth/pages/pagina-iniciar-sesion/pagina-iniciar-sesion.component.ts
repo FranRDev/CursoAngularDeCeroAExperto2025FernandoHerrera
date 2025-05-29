@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AutenticacionService } from '@auth/services/autenticacion.service';
 
 @Component({
@@ -15,6 +15,7 @@ export default class PaginaIniciarSesionComponent {
   fb = inject(FormBuilder);
   tieneError = signal(false);
   estaPublicando = signal(false);
+  enrutador = inject(Router)
 
   formulario = this.fb.group({
     correo: ['', [Validators.required, Validators.email]],
@@ -34,7 +35,18 @@ export default class PaginaIniciarSesionComponent {
 
     const { correo, clave } = this.formulario.value;
 
-    this.servicioAutenticacion.iniciarSesion(correo!, clave!).subscribe(respuesta => console.log(respuesta));
+    this.servicioAutenticacion.iniciarSesion(correo!, clave!).subscribe(autenticado => {
+      if (autenticado) {
+        this.enrutador.navigateByUrl('/');
+        return;
+      }
+
+      setTimeout(() => {
+        this.tieneError.set(false);
+      }, 2000);
+
+      return;
+    });
   }
 
 }
