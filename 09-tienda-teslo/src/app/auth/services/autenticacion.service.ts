@@ -1,11 +1,12 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { rxResource } from '@angular/core/rxjs-interop';
+
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { RespuestaAuth } from '@auth/interfaces/respuesta-auth.interfce';
 import { User } from '@auth/interfaces/usuario.interface';
-import { catchError, map, Observable, of, tap } from 'rxjs';
-import { rxResource } from '@angular/core/rxjs-interop';
 
 type EstadoAutenticacion = 'comprobando' | 'autenticado' | 'no-autenticado';
 
@@ -16,7 +17,7 @@ export class AutenticacionService {
 
   private _estadoAutenticacion = signal<EstadoAutenticacion>('comprobando');
   private _usuario = signal<User | null>(null);
-  private _token = signal<string | null>(null);
+  private _token = signal<string | null>(localStorage.getItem('token'));
 
   private clienteHttp = inject(HttpClient);
 
