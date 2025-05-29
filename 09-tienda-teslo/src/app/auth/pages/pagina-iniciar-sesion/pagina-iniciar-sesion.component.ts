@@ -1,9 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
+  imports: [RouterLink, ReactiveFormsModule],
   selector: 'pagina-iniciar-sesion',
-  imports: [RouterLink],
-  templateUrl: './pagina-iniciar-sesion.component.html',
+  templateUrl: './pagina-iniciar-sesion.component.html'
 })
-export default class PaginaIniciarSesionComponent { }
+export default class PaginaIniciarSesionComponent {
+
+  fb = inject(FormBuilder);
+  tieneError = signal(false);
+  estaPublicando = signal(false);
+
+  formulario = this.fb.group({
+    correo: ['', [Validators.required, Validators.email]],
+    clave: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  enviar() {
+    if (this.formulario.invalid) {
+      this.tieneError.set(true);
+
+      setTimeout(() => {
+        this.tieneError.set(false);
+      }, 2000);
+
+      return;
+    }
+
+    const { correo, clave } = this.formulario.value;
+    console.log({ correo, clave });
+  }
+
+}
