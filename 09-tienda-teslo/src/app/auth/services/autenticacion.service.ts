@@ -47,7 +47,9 @@ export class AutenticacionService {
     if (!token) { return this.manejarAutenticacionErronea(); }
 
     return this.clienteHttp
-      .get<RespuestaAuth>(`${urlBase}/auth/check-status`, { headers: { Authorization: `Bearer ${token}` } })
+      .get<RespuestaAuth>(`${urlBase}/auth/check-status`, {
+        // headers: { Authorization: `Bearer ${token}` }
+      })
       .pipe(
         map(respuesta => this.manejarAutenticacionCorrecta(respuesta)),
         catchError(() => this.manejarAutenticacionErronea())
@@ -58,7 +60,9 @@ export class AutenticacionService {
     this._usuario.set(null);
     this._token.set(null);
     this._estadoAutenticacion.set('no-autenticado');
-    localStorage.removeItem('token');
+
+    // TODO: Revertir
+    // localStorage.removeItem('token');
   }
 
   private manejarAutenticacionCorrecta({ user, token }: RespuestaAuth) {
