@@ -10,7 +10,7 @@ export const rutasAdmin: Routes = [
         loadComponent: () => import('./pages/administracion-producto/administracion-producto.component')
       },
       {
-        path: 'producto/:id',
+        path: 'productos/:id',
         loadComponent: () => import('./pages/administracion-producto/administracion-producto.component')
       },
       {
