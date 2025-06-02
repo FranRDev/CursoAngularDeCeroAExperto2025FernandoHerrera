@@ -61,9 +61,7 @@ export class AutenticacionService {
     this._usuario.set(null);
     this._token.set(null);
     this._estadoAutenticacion.set('no-autenticado');
-
-    // TODO: Revertir
-    // localStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 
   private manejarAutenticacionCorrecta({ user, token }: RespuestaAuth) {
@@ -77,6 +75,17 @@ export class AutenticacionService {
   private manejarAutenticacionErronea() {
     this.cerrarSesion();
     return of(false);
+  }
+
+  registrarUsuario(correo: string, clave: string, nombre: string): Observable<boolean> {
+    console.log({ correo, clave, nombre });
+
+    return this.clienteHttp
+      .post<RespuestaAuth>(`${urlBase}/auth/register`, { email: correo, password: clave, fullName: nombre })
+      .pipe(
+        map(respuesta => this.manejarAutenticacionCorrecta(respuesta)),
+        catchError(() => this.manejarAutenticacionErronea())
+      );
   }
 
 }

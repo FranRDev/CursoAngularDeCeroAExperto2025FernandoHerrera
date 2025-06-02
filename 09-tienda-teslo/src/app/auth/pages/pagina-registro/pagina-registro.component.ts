@@ -1,8 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+
+import { AutenticacionService } from '@auth/services/autenticacion.service';
 
 @Component({
   selector: 'pagina-registro',
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './pagina-registro.component.html',
 })
-export default class PaginaRegistroComponent { }
+export default class PaginaRegistroComponent {
+
+  servicioAutenticacion = inject(AutenticacionService);
+
+  fb = inject(FormBuilder);
+  tieneError = signal(false);
+  estaPublicando = signal(false);
+  enrutador = inject(Router)
+
+  formulario = this.fb.group({
+    correo: ['', [Validators.required, Validators.email]],
+    clave: ['', [Validators.required, Validators.minLength(6)]],
+    nombre: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  enviar() {
+    if (this.formulario.invalid) {
+      this.tieneError.set(true);
+
+      setTimeout(() => {
+        this.tieneError.set(false);
+      }, 2000);
+
+      return;
+    }
+
+    const { correo, clave, nombre } = this.formulario.value;
+
+    this.servicioAutenticacion.registrarUsuario(correo!, clave!, nombre!).subscribe(autenticado => {
+      if (autenticado) {
+        this.enrutador.navigateByUrl('/');
+        return;
+      }
+
+      setTimeout(() => {
+        this.tieneError.set(false);
+      }, 2000);
+
+      return;
+    });
+  }
+
+}
