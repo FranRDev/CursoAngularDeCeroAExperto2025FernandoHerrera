@@ -33,6 +33,7 @@ export class AutenticacionService {
 
   usuario = computed(() => this._usuario());
   token = computed(() => this._token());
+  esAdmin = computed(() => this._usuario()?.roles.includes('admin') ?? false);
 
   iniciarSesion(correo: string, clave: string): Observable<boolean> {
     return this.clienteHttp

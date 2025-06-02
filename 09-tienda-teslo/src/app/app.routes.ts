@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { EsAdminGuard } from '@auth/guards/es-admin.guard';
 import { NoAutenticadoGuard } from '@auth/guards/no-autenticado.guard';
 
 export const routes: Routes = [
@@ -15,7 +16,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.routes')
+    loadChildren: () => import('./admin/admin.routes'),
+    canMatch: [EsAdminGuard]
   },
   {
     path: '',
