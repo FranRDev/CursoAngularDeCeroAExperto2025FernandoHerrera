@@ -32,7 +32,8 @@
               </div>
             </div>
             <div>
-              <a [routerLink]="['/admin/productos', producto.id]" class="font-bold">{{ producto.title }}</a>
+              <a [routerLink]="['/admin/productos', producto.id]"
+                class="font-bold hover:text-accent transition-colors duration-300">{{ producto.title }}</a>
               <div class="text-sm opacity-50">{{ producto.sizes.join(', ') }}</div>
             </div>
           </div>
@@ -41,15 +42,13 @@
           {{ producto.price | currency }}
         </td>
         <td>
-          @if (producto.stock <= 10) {
-            <span class="badge badge-error">{{ producto.stock }}</span>
+          @if (producto.stock <= 10) { <span class="badge badge-error">{{ producto.stock }}</span>
 
-          } @else if ( producto.stock <= 20) {
-            <span class="badge badge-warning">{{ producto.stock }}</span>
+            } @else if ( producto.stock <= 20) { <span class="badge badge-warning">{{ producto.stock }}</span>
 
-          } @else {
-            <span class="badge badge-success">{{ producto.stock }}</span>
-          }
+              } @else {
+              <span class="badge badge-success">{{ producto.stock }}</span>
+              }
         </td>
         <th>
           <a [routerLink]="['admin/productos', producto.id]" class="btn btn-ghost text-accent btn-xs">Detalles</a>

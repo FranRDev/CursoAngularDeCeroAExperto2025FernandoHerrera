@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 import { PaginacionService } from '@shared/components/paginador/paginador.service';
@@ -19,11 +19,17 @@ export default class AdministracionProductoComponent {
   servicioProductos = inject(ServicioProductosService);
   servicioPaginacion = inject(PaginacionService);
 
+  productosPorPagina = signal(10);
+
   recursoProductos = rxResource({
-    request: () => ({ pagina: this.servicioPaginacion.paginaActual() - 1 }),
+    request: () => ({
+      pagina: this.servicioPaginacion.paginaActual() - 1,
+      limite: this.productosPorPagina()
+    }),
     loader: ({ request }) => {
       return this.servicioProductos.obtenerProductos({
-        salto: request.pagina * 9
+        salto: request.pagina * 9,
+        limite: request.limite
       });
     }
   });
