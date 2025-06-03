@@ -81,7 +81,7 @@
       </button>
     </div>
 
-    <carrusel-producto [imagenes]="formulario.value.imagenes ?? []" />
+    <carrusel-producto [imagenes]="imagenesCarrusel()" />
 
     <input type="file" multiple accept="image/*" class="file-input file-input-bordered w-full mt-4"
       (change)="cambioImagenesSeleccionadas($event)" />

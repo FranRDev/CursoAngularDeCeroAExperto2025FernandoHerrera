@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -28,6 +28,7 @@ export class DetallesProductosComponent implements OnInit {
   guardado = signal(false);
   listaImagenes: FileList | undefined = undefined;
   imagenesTemporales = signal<string[]>([]);
+  imagenesCarrusel = computed(() => [...this.producto().images, ...this.imagenesTemporales()]);
 
   formulario = this.fb.group({
     titulo: ['', Validators.required],
@@ -114,9 +115,6 @@ export class DetallesProductosComponent implements OnInit {
     this.listaImagenes = imagenes ?? undefined;
     const urlsImagenes = Array.from(imagenes ?? []).map(fichero => URL.createObjectURL(fichero));
     this.imagenesTemporales.set(urlsImagenes);
-
-    this.formulario.value.imagenes?.push(...urlsImagenes);
-    // this.formulario.patchValue({ imagenes: this.formulario.value.imagenes?.push(...urlsImagenes) ?? [''] });
   }
 
 }

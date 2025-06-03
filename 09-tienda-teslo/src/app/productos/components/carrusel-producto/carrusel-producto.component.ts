@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, input, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, input, OnChanges, SimpleChanges, viewChild } from '@angular/core';
 
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -18,16 +18,29 @@ import { ImagenProductoPipe } from '@productos/pipes/imagen-producto.pipe';
     }
   `
 })
-export class CarruselProductoComponent implements AfterViewInit {
+export class CarruselProductoComponent implements AfterViewInit, OnChanges {
 
   imagenes = input.required<string[]>();
   divSwiper = viewChild.required<ElementRef>('divSwiper');
+  swiper: Swiper | undefined = undefined;
 
   ngAfterViewInit(): void {
+    this.inicializarSwiper();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['imagenes'].firstChange) return;
+    if (!this.swiper) return;
+
+    this.swiper.destroy(true, true);
+    this.inicializarSwiper();
+  }
+
+  private inicializarSwiper() {
     const elemento = this.divSwiper().nativeElement;
     if (!elemento) return;
 
-    const swiper = new Swiper(elemento, {
+    this.swiper = new Swiper(elemento, {
       // Optional parameters
       direction: 'horizontal',
       loop: true,
