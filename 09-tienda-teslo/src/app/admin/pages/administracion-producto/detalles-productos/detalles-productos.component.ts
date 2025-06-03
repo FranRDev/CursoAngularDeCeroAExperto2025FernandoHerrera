@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarruselProductoComponent } from '@productos/components/carrusel-producto/carrusel-producto.component';
 
-import { Product } from '@productos/interfaces/productos.interface';
+import { Product, Size } from '@productos/interfaces/productos.interface';
 import { FormUtils } from '@utils/utilidades-formularios';
 
 @Component({
@@ -22,10 +22,10 @@ export class DetallesProductosComponent implements OnInit {
     slug: ['', [Validators.required, Validators.pattern(FormUtils.slugPattern)]],
     precio: [0, [Validators.required, Validators.min(0)]],
     existencias: [0, [Validators.required, Validators.min(0)]],
-    tallas: [[]],
+    tallas: [['']],
     imagenes: [[]],
     etiquetas: [''],
-    genero: ['hombre', [Validators.required, Validators.pattern(/hombre|mujer|ninhos|unisex/)]]
+    genero: ['men', [Validators.required, Validators.pattern(/hombre|mujer|ninhos|unisex/)]]
   });
 
   tallas = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -41,11 +41,23 @@ export class DetallesProductosComponent implements OnInit {
       slug: producto.slug,
       precio: producto.price,
       existencias: producto.stock,
-      //tallas: producto.sizes,
-      //imagenes: producto.images,
+      tallas: producto.sizes,
       etiquetas: producto.tags?.join(','),
       genero: producto.gender
     });
+  }
+
+  tallaSeleccionada(talla: string) {
+    const tallasActuales = this.formulario.value.tallas ?? [];
+
+    if (tallasActuales.includes(talla)) {
+      tallasActuales.splice(tallasActuales.indexOf(talla, 1));
+
+    } else {
+      tallasActuales.push(talla);
+    }
+
+    this.formulario.patchValue({ tallas: tallasActuales });
   }
 
   enviar() {
