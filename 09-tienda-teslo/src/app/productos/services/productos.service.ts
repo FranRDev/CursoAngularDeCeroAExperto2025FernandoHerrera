@@ -50,7 +50,17 @@ export class ProductosService {
   }
 
   actualizarProducto(id: string, producto: Partial<Product>): Observable<Product> {
-    return this.clienteHttp.patch<Product>(`${urlBase}/products/${id}`, producto);
+    return this.clienteHttp.patch<Product>(`${urlBase}/products/${id}`, producto).pipe(tap(producto => this.actualizarCacheProducto(producto)));
+  }
+
+  actualizarCacheProducto(producto: Product) {
+    this.cacheProducto.set(producto.id, producto);
+
+    this.cacheProductos.forEach(cache => {
+      cache.products = cache.products.map(productoActual => productoActual.id === producto.id ? producto : productoActual)
+    });
+
+    console.log('Caché actualizado');
   }
 
 }

@@ -42,6 +42,10 @@
   </div>
 
   <div class="navbar-end gap-4">
+    @if (servicioAutenticacion.esAdmin()) {
+    <a routerLink="/admin" class="btn text-accent">Panel Admin</a>
+    }
+
     @if (servicioAutenticacion.estadoAutenticacion() === 'autenticado') {
     <button class="btn btn-ghost">{{ servicioAutenticacion.usuario()?.fullName }}</button>
     <button class="btn btn-sm btn-error" (click)="servicioAutenticacion.cerrarSesion()">Salir</button>
