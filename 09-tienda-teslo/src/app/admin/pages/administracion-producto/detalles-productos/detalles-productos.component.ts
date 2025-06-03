@@ -1,12 +1,17 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CarruselProductoComponent } from '@productos/components/carrusel-producto/carrusel-producto.component';
 
-import { Product, Size } from '@productos/interfaces/productos.interface';
+import { CarruselProductoComponent } from '@productos/components/carrusel-producto/carrusel-producto.component';
+import { ErrorFormularioComponent } from '@shared/components/error-formulario/error-formulario.component';
 import { FormUtils } from '@utils/utilidades-formularios';
+import { Product } from '@productos/interfaces/productos.interface';
 
 @Component({
-  imports: [CarruselProductoComponent, ReactiveFormsModule],
+  imports: [
+    CarruselProductoComponent,
+    ErrorFormularioComponent,
+    ReactiveFormsModule
+  ],
   selector: 'detalles-productos',
   templateUrl: './detalles-productos.component.html'
 })
@@ -25,7 +30,7 @@ export class DetallesProductosComponent implements OnInit {
     tallas: [['']],
     imagenes: [[]],
     etiquetas: [''],
-    genero: ['men', [Validators.required, Validators.pattern(/hombre|mujer|ninhos|unisex/)]]
+    genero: ['men', [Validators.required, Validators.pattern(/men|women|kid|unisex/)]]
   });
 
   tallas = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -61,7 +66,8 @@ export class DetallesProductosComponent implements OnInit {
   }
 
   enviar() {
-    console.log(this.formulario.value);
+    const valido = this.formulario.valid;
+    console.log(this.formulario.value, { valido });
   }
 
 }
