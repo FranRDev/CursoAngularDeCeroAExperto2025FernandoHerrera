@@ -3,10 +3,12 @@ import { Component, effect, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 
 import { map } from 'rxjs';
+
 import { ProductosService } from '@productos/services/productos.service';
+import { DetallesProductosComponent } from './detalles-productos/detalles-productos.component';
 
 @Component({
-  imports: [],
+  imports: [DetallesProductosComponent],
   selector: 'administracion-producto',
   templateUrl: './administracion-producto.component.html'
 })
