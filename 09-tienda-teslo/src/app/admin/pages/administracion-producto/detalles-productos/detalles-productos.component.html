@@ -81,9 +81,16 @@
       </button>
     </div>
 
-    <carrusel-producto [imagenes]="producto().images" />
+    <carrusel-producto [imagenes]="formulario.value.imagenes ?? []" />
 
-    <input type="file" class="file-input file-input-bordered w-full mt-4" />
+    <input type="file" multiple accept="image/*" class="file-input file-input-bordered w-full mt-4"
+      (change)="cambioImagenesSeleccionadas($event)" />
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+      @for (imagen of imagenesTemporales(); track imagen) {
+      <img [src]="imagen" alt="Imagen temporal" class="w-full object-cover rounded-xl">
+      }
+    </div>
   </div>
 </form>
 
