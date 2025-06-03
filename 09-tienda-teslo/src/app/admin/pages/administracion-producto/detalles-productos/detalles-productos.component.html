@@ -1,34 +1,36 @@
 <h1 class="text-2xl font-bold">{{ producto().title }}</h1>
 <div class="divider"></div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<form [formGroup]="formulario" class="grid grid-cols-1 sm:grid-cols-2 gap-4" (ngSubmit)="enviar()">
+
   <!-- Datos generales -->
   <div class="flex flex-col gap-2">
     <h2 class="text-2xl font-bold h-12">Datos generales</h2>
-    <input type="text" placeholder="Título" class="input input-bordered w-full" />
 
-    <input type="text" placeholder="Slug" class="input input-bordered w-full" />
+    <input type="text" placeholder="Título" class="input input-bordered w-full" formControlName="titulo" />
 
-    <textarea class="textarea textarea-bordered" placeholder="Descripción" rows="6"></textarea>
+    <input type="text" placeholder="Slug" class="input input-bordered w-full" formControlName="slug" />
+
+    <textarea class="textarea textarea-bordered" placeholder="Descripción" rows="6" formControlName="descripcion"></textarea>
 
     <h2 class="text-lg font-bold">Datos de venta</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-      <input type="number" placeholder="Precio" class="input input-bordered w-full" />
+      <input type="number" placeholder="Precio" class="input input-bordered w-full" formControlName="precio" />
 
-      <input type="number" placeholder="Inventario" class="input input-bordered w-full" />
+      <input type="number" placeholder="Inventario" class="input input-bordered w-full" formControlName="existencias" />
     </div>
 
     <!-- tags -->
-    <input type="text" placeholder="Tags" class="input input-bordered w-full" />
+    <input type="text" placeholder="Tags" class="input input-bordered w-full" formControlName="etiquetas" />
 
     <!-- Botones para el género -->
     <div class="grid grid-cols-4 gap-2">
       <!-- <button class="btn btn-sm btn-outline">Masculino</button> -->
-      <button class="btn btn-sm btn-primary">Masculino</button>
-      <button class="btn btn-sm btn-accent">Femenino</button>
-      <button class="btn btn-sm btn-warning">Niños</button>
-      <button class="btn btn-sm btn-secondary">Unisex</button>
+      <button type="button" class="btn btn-sm btn-primary">Masculino</button>
+      <button type="button" class="btn btn-sm btn-accent">Femenino</button>
+      <button type="button" class="btn btn-sm btn-warning">Niños</button>
+      <button type="button" class="btn btn-sm btn-secondary">Unisex</button>
     </div>
 
     <!-- <select class="select select-bordered w-full">
@@ -40,7 +42,7 @@
     <!-- Sizes -->
     <div class="grid grid-cols-6 gap-2">
       @for (size of tallas; track size) {
-      <button class="btn btn-sm btn-outline">{{ size }}</button>
+      <button class="btn btn-sm btn-outline" type="button">{{ size }}</button>
       }
     </div>
   </div>
@@ -59,4 +61,4 @@
 
     <input type="file" class="file-input file-input-bordered w-full mt-4" />
   </div>
-</div>
+</form>

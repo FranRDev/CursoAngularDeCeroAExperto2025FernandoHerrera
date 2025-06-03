@@ -23,6 +23,9 @@
       "@shared/*": [
         "./src/app/shared/*"
       ],
+      "@utils/*": [
+        "./src/app/utils/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
