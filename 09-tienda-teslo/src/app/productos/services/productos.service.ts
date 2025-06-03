@@ -49,4 +49,8 @@ export class ProductosService {
       .pipe(tap(respuesta => this.cacheProducto.set(idOSlug, respuesta)));
   }
 
+  actualizarProducto(producto: Partial<Product>) {
+    console.log('Actualizando producto');
+  }
+
 }

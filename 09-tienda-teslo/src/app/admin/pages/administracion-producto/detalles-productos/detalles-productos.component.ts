@@ -4,7 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarruselProductoComponent } from '@productos/components/carrusel-producto/carrusel-producto.component';
 import { ErrorFormularioComponent } from '@shared/components/error-formulario/error-formulario.component';
 import { FormUtils } from '@utils/utilidades-formularios';
-import { Product } from '@productos/interfaces/productos.interface';
+import { Gender, Product, Size } from '@productos/interfaces/productos.interface';
+import { ProductosService } from '@productos/services/productos.service';
 
 @Component({
   imports: [
@@ -18,6 +19,7 @@ import { Product } from '@productos/interfaces/productos.interface';
 export class DetallesProductosComponent implements OnInit {
 
   producto = input.required<Product>();
+  servicioProductos = inject(ProductosService);
 
   fb = inject(FormBuilder);
 
@@ -28,7 +30,7 @@ export class DetallesProductosComponent implements OnInit {
     precio: [0, [Validators.required, Validators.min(0)]],
     existencias: [0, [Validators.required, Validators.min(0)]],
     tallas: [['']],
-    imagenes: [[]],
+    imagenes: [['']],
     etiquetas: [''],
     genero: ['men', [Validators.required, Validators.pattern(/men|women|kid|unisex/)]]
   });
@@ -47,6 +49,7 @@ export class DetallesProductosComponent implements OnInit {
       precio: producto.price,
       existencias: producto.stock,
       tallas: producto.sizes,
+      imagenes: producto.images,
       etiquetas: producto.tags?.join(','),
       genero: producto.gender
     });
@@ -66,8 +69,26 @@ export class DetallesProductosComponent implements OnInit {
   }
 
   enviar() {
+    this.formulario.markAllAsTouched();
+
     const valido = this.formulario.valid;
-    console.log(this.formulario.value, { valido });
+    if (!valido) return;
+
+    const valorFormulario = this.formulario.value;
+
+    const producto: Partial<Product> = {
+      title: valorFormulario.titulo!,
+      description: valorFormulario.descripcion!,
+      slug: valorFormulario.slug!,
+      price: valorFormulario.precio!,
+      stock: valorFormulario.existencias!,
+      sizes: valorFormulario.tallas?.map(talla => talla as Size) ?? [],
+      images: valorFormulario.imagenes ?? [],
+      tags: valorFormulario.etiquetas?.toLocaleLowerCase().split(',').map((etiqueta) => etiqueta.trim()) ?? [],
+      gender: valorFormulario.genero! as Gender
+    };
+
+    this.servicioProductos.actualizarProducto(producto);
   }
 
 }
