@@ -96,11 +96,11 @@ export class DetallesProductosComponent implements OnInit {
     };
 
     if (this.producto().id === 'nuevo') {
-      const productoCreado = await firstValueFrom(this.servicioProductos.crearProducto(producto));
+      const productoCreado = await firstValueFrom(this.servicioProductos.crearProducto(producto, this.listaImagenes));
       this.enrutador.navigate(['/admin/productos', productoCreado.id]);
 
     } else {
-      await firstValueFrom(this.servicioProductos.actualizarProducto(this.producto().id, producto));
+      await firstValueFrom(this.servicioProductos.actualizarProducto(this.producto().id, producto, this.listaImagenes));
     }
 
     this.guardado.set(true);

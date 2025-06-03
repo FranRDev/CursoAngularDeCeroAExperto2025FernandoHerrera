@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { forkJoin, map, Observable, of, tap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Gender, Product, ProductsResponse } from '@productos/interfaces/productos.interface';
@@ -37,10 +37,19 @@ export class ProductosService {
   private cacheProductos = new Map<string, ProductsResponse>();
   private cacheProducto = new Map<string, Product>();
 
-  crearProducto(producto: Partial<Product>): Observable<Product> {
-    return this.clienteHttp
-      .post<Product>(`${urlBase}/products`, producto)
-      .pipe(tap(producto => this.actualizarCacheProducto(producto)));
+  crearProducto(producto: Partial<Product>, listaImagenes?: FileList): Observable<Product> {
+    const imagenesActuales = producto.images ?? [];
+
+    return this.subirImagenes(listaImagenes)
+      .pipe(
+        map(imagenes => ({ ...producto, images: [...imagenesActuales, ...imagenes] })),
+        switchMap(producto => this.clienteHttp.post<Product>(`${urlBase}/products`, producto)),
+        tap(producto => this.actualizarCacheProducto(producto))
+      );
+
+    // return this.clienteHttp
+    //   .post<Product>(`${urlBase}/products`, producto)
+    //   .pipe(tap(producto => this.actualizarCacheProducto(producto)));
   }
 
   obtenerProductos(opciones: Opciones): Observable<ProductsResponse> {
@@ -71,10 +80,19 @@ export class ProductosService {
       .pipe(tap(respuesta => this.cacheProducto.set(idOSlug, respuesta)));
   }
 
-  actualizarProducto(id: string, producto: Partial<Product>): Observable<Product> {
-    return this.clienteHttp
-      .patch<Product>(`${urlBase}/products/${id}`, producto)
-      .pipe(tap(producto => this.actualizarCacheProducto(producto)));
+  actualizarProducto(id: string, producto: Partial<Product>, listaImagenes?: FileList): Observable<Product> {
+    const imagenesActuales = producto.images ?? [];
+
+    return this.subirImagenes(listaImagenes)
+      .pipe(
+        map(imagenes => ({ ...producto, images: [...imagenesActuales, ...imagenes] })),
+        switchMap(producto => this.clienteHttp.patch<Product>(`${urlBase}/products/${id}`, producto)),
+        tap(producto => this.actualizarCacheProducto(producto))
+      );
+
+    // return this.clienteHttp
+    //   .patch<Product>(`${urlBase}/products/${id}`, producto)
+    //   .pipe(tap(producto => this.actualizarCacheProducto(producto)));
   }
 
   actualizarCacheProducto(producto: Product) {
