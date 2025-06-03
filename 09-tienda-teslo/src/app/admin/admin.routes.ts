@@ -7,7 +7,7 @@ export const rutasAdmin: Routes = [
     children: [
       {
         path: 'productos',
-        loadComponent: () => import('./pages/administracion-producto/administracion-producto.component')
+        loadComponent: () => import('./pages/administracion-productos/administracion-productos.component')
       },
       {
         path: 'productos/:id',

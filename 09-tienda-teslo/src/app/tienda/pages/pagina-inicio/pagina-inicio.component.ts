@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop'
 
 import { PaginadorComponent } from '@shared/components/paginador/paginador.component';
-import { ServicioProductosService } from '@productos/services/productos.service';
+import { ProductosService } from '@productos/services/productos.service';
 import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto/tarjeta-producto.component';
 import { PaginacionService } from '@shared/components/paginador/paginador.service';
 
@@ -15,7 +15,7 @@ import { PaginacionService } from '@shared/components/paginador/paginador.servic
 })
 export default class PaginaInicioComponent {
 
-  servicioProductos = inject(ServicioProductosService);
+  servicioProductos = inject(ProductosService);
   servicioPaginacion = inject(PaginacionService);
 
   // rutaActiva = inject(ActivatedRoute);

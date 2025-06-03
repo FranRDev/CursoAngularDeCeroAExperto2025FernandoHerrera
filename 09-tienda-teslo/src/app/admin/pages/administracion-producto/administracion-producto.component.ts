@@ -1,36 +1,33 @@
-import { Component, inject, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, effect, inject } from '@angular/core';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 
-import { PaginacionService } from '@shared/components/paginador/paginador.service';
-import { PaginadorComponent } from '@shared/components/paginador/paginador.component';
-import { ServicioProductosService } from '@productos/services/productos.service';
-import { TablaProductosComponent } from '@productos/components/tabla-productos/tabla-productos.component';
+import { map } from 'rxjs';
+import { ProductosService } from '@productos/services/productos.service';
 
 @Component({
-  imports: [
-    PaginadorComponent,
-    TablaProductosComponent
-  ],
+  imports: [],
   selector: 'administracion-producto',
   templateUrl: './administracion-producto.component.html'
 })
 export default class AdministracionProductoComponent {
 
-  servicioProductos = inject(ServicioProductosService);
-  servicioPaginacion = inject(PaginacionService);
+  rutaActiva = inject(ActivatedRoute);
+  enrutador = inject(Router);
+  servicioProductos = inject(ProductosService)
 
-  productosPorPagina = signal(10);
+  idProducto = toSignal(this.rutaActiva.params.pipe(map(parametros => parametros['id'])));
 
-  recursoProductos = rxResource({
-    request: () => ({
-      pagina: this.servicioPaginacion.paginaActual() - 1,
-      limite: this.productosPorPagina()
-    }),
+  recursoProducto = rxResource({
+    request: () => ({ id: this.idProducto() }),
     loader: ({ request }) => {
-      return this.servicioProductos.obtenerProductos({
-        salto: request.pagina * 9,
-        limite: request.limite
-      });
+      return this.servicioProductos.obtenerProductoPorId(request.id);
+    }
+  });
+
+  efectoRedireccion = effect(() => {
+    if (this.recursoProducto.error()) {
+      this.enrutador.navigate(['/admin/productos']);
     }
   });
 

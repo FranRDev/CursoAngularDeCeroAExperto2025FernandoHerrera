@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 import { CarruselProductoComponent } from "../../../productos/components/carrusel-producto/carrusel-producto.component";
-import { ServicioProductosService } from '@productos/services/productos.service';
+import { ProductosService } from '@productos/services/productos.service';
 
 @Component({
   imports: [CarruselProductoComponent],
@@ -13,11 +13,11 @@ export default class PaginaProductoComponent {
 
   rutaActiva = inject(ActivatedRoute);
   slug: string = this.rutaActiva.snapshot.params['id'] ?? '';
-  servicioProductos = inject(ServicioProductosService);
+  servicioProductos = inject(ProductosService);
 
   recursoProducto = rxResource({
     request: () => ({ iOSlug: this.slug }),
-    loader: ({ request }) => this.servicioProductos.obtenerProducto(request.iOSlug)
+    loader: ({ request }) => this.servicioProductos.obtenerProductoPorIdOSlugu(request.iOSlug)
   });
 
 }

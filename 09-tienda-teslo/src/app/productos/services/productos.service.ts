@@ -15,7 +15,7 @@ interface Opciones {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ServicioProductosService {
+export class ProductosService {
 
   private clienteHttp = inject(HttpClient);
 
@@ -33,7 +33,15 @@ export class ServicioProductosService {
       .pipe(tap(respuesta => this.cacheProductos.set(llave, respuesta)));
   }
 
-  obtenerProducto(idOSlug: string): Observable<Product> {
+  obtenerProductoPorId(id: string): Observable<Product> {
+    if (this.cacheProducto.has(id)) { return of(this.cacheProducto.get(id)!); }
+
+    return this.clienteHttp
+      .get<Product>(`${urlBase}/products/${id}`)
+      .pipe(tap(respuesta => this.cacheProducto.set(id, respuesta)));
+  }
+
+  obtenerProductoPorIdOSlugu(idOSlug: string): Observable<Product> {
     if (this.cacheProducto.has(idOSlug)) { return of(this.cacheProducto.get(idOSlug)!); }
 
     return this.clienteHttp

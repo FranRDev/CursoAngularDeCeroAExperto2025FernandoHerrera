@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 
 import { PaginacionService } from '@shared/components/paginador/paginador.service';
 import { PaginadorComponent } from '@shared/components/paginador/paginador.component';
-import { ServicioProductosService } from '@productos/services/productos.service';
+import { ProductosService } from '@productos/services/productos.service';
 import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto/tarjeta-producto.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { TarjetaProductoComponent } from '@productos/components/tarjeta-producto
 export default class PaginaGeneroComponent {
 
   rutaActiva = inject(ActivatedRoute);
-  servicioProductos = inject(ServicioProductosService);
+  servicioProductos = inject(ProductosService);
   servicioPaginacion = inject(PaginacionService);
 
   generoRuta = toSignal(
