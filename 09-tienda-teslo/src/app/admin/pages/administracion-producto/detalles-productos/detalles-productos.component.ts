@@ -88,7 +88,7 @@ export class DetallesProductosComponent implements OnInit {
       gender: valorFormulario.genero! as Gender
     };
 
-    this.servicioProductos.actualizarProducto(producto);
+    this.servicioProductos.actualizarProducto(this.producto().id, producto).subscribe(producto => console.log('Producto actualizado'));
   }
 
 }
