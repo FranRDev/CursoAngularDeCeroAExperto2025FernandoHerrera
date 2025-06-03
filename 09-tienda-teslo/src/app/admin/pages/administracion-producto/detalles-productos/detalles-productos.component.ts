@@ -6,6 +6,7 @@ import { ErrorFormularioComponent } from '@shared/components/error-formulario/er
 import { FormUtils } from '@utils/utilidades-formularios';
 import { Gender, Product, Size } from '@productos/interfaces/productos.interface';
 import { ProductosService } from '@productos/services/productos.service';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [
@@ -19,6 +20,7 @@ import { ProductosService } from '@productos/services/productos.service';
 export class DetallesProductosComponent implements OnInit {
 
   producto = input.required<Product>();
+  enrutador = inject(Router);
   servicioProductos = inject(ProductosService);
 
   fb = inject(FormBuilder);
@@ -88,7 +90,15 @@ export class DetallesProductosComponent implements OnInit {
       gender: valorFormulario.genero! as Gender
     };
 
-    this.servicioProductos.actualizarProducto(this.producto().id, producto).subscribe(producto => console.log('Producto actualizado'));
+    if (this.producto().id === 'nuevo') {
+      this.servicioProductos.crearProducto(producto).subscribe(producto => {
+        console.log('Producto creado');
+        this.enrutador.navigate(['/admin/productos', producto.id]);
+      });
+
+    } else {
+      this.servicioProductos.actualizarProducto(this.producto().id, producto).subscribe(() => console.log('Producto actualizado'));
+    }
   }
 
 }

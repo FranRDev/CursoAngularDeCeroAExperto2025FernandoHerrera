@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 import { PaginacionService } from '@shared/components/paginador/paginador.service';
@@ -9,6 +10,7 @@ import { TablaProductosComponent } from '@productos/components/tabla-productos/t
 @Component({
   imports: [
     PaginadorComponent,
+    RouterLink,
     TablaProductosComponent
   ],
   selector: 'administracion-productos',

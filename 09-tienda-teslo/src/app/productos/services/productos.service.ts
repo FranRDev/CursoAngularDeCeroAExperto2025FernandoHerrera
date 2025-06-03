@@ -4,7 +4,8 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { Product, ProductsResponse } from '@productos/interfaces/productos.interface';
+import { Gender, Product, ProductsResponse } from '@productos/interfaces/productos.interface';
+import { User } from '@auth/interfaces/usuario.interface';
 
 const urlBase = environment.urlBase;
 
@@ -14,6 +15,20 @@ interface Opciones {
   genero?: string;
 }
 
+const productoVacio: Product = {
+  id: 'nuevo',
+  title: '',
+  price: 0,
+  description: '',
+  slug: '',
+  stock: 0,
+  sizes: [],
+  gender: Gender.Men,
+  tags: [],
+  images: [],
+  user: {} as User
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProductosService {
 
@@ -21,6 +36,12 @@ export class ProductosService {
 
   private cacheProductos = new Map<string, ProductsResponse>();
   private cacheProducto = new Map<string, Product>();
+
+  crearProducto(producto: Partial<Product>): Observable<Product> {
+    return this.clienteHttp
+      .post<Product>(`${urlBase}/products`, producto)
+      .pipe(tap(producto => this.actualizarCacheProducto(producto)));
+  }
 
   obtenerProductos(opciones: Opciones): Observable<ProductsResponse> {
     const { limite = 9, salto = 0, genero = '' } = opciones;
@@ -34,6 +55,7 @@ export class ProductosService {
   }
 
   obtenerProductoPorId(id: string): Observable<Product> {
+    if (id === 'nuevo') return of(productoVacio);
     if (this.cacheProducto.has(id)) { return of(this.cacheProducto.get(id)!); }
 
     return this.clienteHttp
@@ -50,7 +72,9 @@ export class ProductosService {
   }
 
   actualizarProducto(id: string, producto: Partial<Product>): Observable<Product> {
-    return this.clienteHttp.patch<Product>(`${urlBase}/products/${id}`, producto).pipe(tap(producto => this.actualizarCacheProducto(producto)));
+    return this.clienteHttp
+      .patch<Product>(`${urlBase}/products/${id}`, producto)
+      .pipe(tap(producto => this.actualizarCacheProducto(producto)));
   }
 
   actualizarCacheProducto(producto: Product) {
