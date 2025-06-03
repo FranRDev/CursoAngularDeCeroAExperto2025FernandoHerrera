@@ -33,7 +33,13 @@ export class CarruselProductoComponent implements AfterViewInit, OnChanges {
     if (!this.swiper) return;
 
     this.swiper.destroy(true, true);
-    this.inicializarSwiper();
+
+    const paginacion: HTMLDivElement = this.divSwiper().nativeElement?.querySelector('.swiper-pagination');
+    paginacion.innerHTML = '';
+
+    setTimeout(() => {
+      this.inicializarSwiper();
+    }, 100);
   }
 
   private inicializarSwiper() {
