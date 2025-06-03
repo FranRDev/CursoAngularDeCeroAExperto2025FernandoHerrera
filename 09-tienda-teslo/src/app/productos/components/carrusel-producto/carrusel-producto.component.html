@@ -1,22 +1,23 @@
-<!-- Slider main container -->
 <div class="swiper" #divSwiper>
-  <!-- Additional required wrapper -->
+
   <div class="swiper-wrapper">
-    <!-- Slides -->
     @for (imagen of imagenes(); track $index) {
     <div class="swiper-slide">
       <img class="w-full object-cover animate-fade-in" [src]="imagen | imagenproducto" />
     </div>
     }
-    ...
+
+    @empty {
+    <div class="swiper-slide">
+      <img class="w-full object-cover animate-fade-in" [src]="null | imagenproducto" />
+    </div>
+    }
   </div>
-  <!-- If we need pagination -->
+
   <div class="swiper-pagination"></div>
 
-  <!-- If we need navigation buttons -->
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
 
-  <!-- If we need scrollbar -->
   <div class="swiper-scrollbar"></div>
 </div>

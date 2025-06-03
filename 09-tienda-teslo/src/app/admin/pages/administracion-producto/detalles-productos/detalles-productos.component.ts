@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CarruselProductoComponent } from '@productos/components/carrusel-producto/carrusel-producto.component';
@@ -7,6 +7,7 @@ import { FormUtils } from '@utils/utilidades-formularios';
 import { Gender, Product, Size } from '@productos/interfaces/productos.interface';
 import { ProductosService } from '@productos/services/productos.service';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   imports: [
@@ -21,9 +22,9 @@ export class DetallesProductosComponent implements OnInit {
 
   producto = input.required<Product>();
   enrutador = inject(Router);
-  servicioProductos = inject(ProductosService);
-
   fb = inject(FormBuilder);
+  servicioProductos = inject(ProductosService);
+  guardado = signal(false);
 
   formulario = this.fb.group({
     titulo: ['', Validators.required],
@@ -70,7 +71,7 @@ export class DetallesProductosComponent implements OnInit {
     this.formulario.patchValue({ tallas: tallasActuales });
   }
 
-  enviar() {
+  async enviar() {
     this.formulario.markAllAsTouched();
 
     const valido = this.formulario.valid;
@@ -91,14 +92,18 @@ export class DetallesProductosComponent implements OnInit {
     };
 
     if (this.producto().id === 'nuevo') {
-      this.servicioProductos.crearProducto(producto).subscribe(producto => {
-        console.log('Producto creado');
-        this.enrutador.navigate(['/admin/productos', producto.id]);
-      });
+      const productoCreado = await firstValueFrom(this.servicioProductos.crearProducto(producto));
+      this.enrutador.navigate(['/admin/productos', productoCreado.id]);
 
     } else {
-      this.servicioProductos.actualizarProducto(this.producto().id, producto).subscribe(() => console.log('Producto actualizado'));
+      await firstValueFrom(this.servicioProductos.actualizarProducto(this.producto().id, producto));
     }
+
+    this.guardado.set(true);
+
+    setTimeout(() => {
+      this.guardado.set(false);
+    }, 3000);
   }
 
 }

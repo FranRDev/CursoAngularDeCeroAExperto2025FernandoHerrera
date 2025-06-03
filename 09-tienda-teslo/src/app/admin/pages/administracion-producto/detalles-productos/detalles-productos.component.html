@@ -86,3 +86,9 @@
     <input type="file" class="file-input file-input-bordered w-full mt-4" />
   </div>
 </form>
+
+@if (guardado()) {
+<div class="alert alert-success fixed bottom-6 right-6 w-80 animate-fade-in">
+  <span>Datos actualizados correctamente</span>
+</div>
+}
