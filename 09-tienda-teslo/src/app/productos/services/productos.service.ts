@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { Observable, of, tap } from 'rxjs';
+import { forkJoin, map, Observable, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Gender, Product, ProductsResponse } from '@productos/interfaces/productos.interface';
@@ -85,6 +85,18 @@ export class ProductosService {
     });
 
     console.log('Caché actualizado');
+  }
+
+  subirImagenes(imagenes?: FileList): Observable<string[]> {
+    if (!imagenes) return of([]);
+    const observablesSubidas = Array.from(imagenes).map(imagen => this.subirImagen(imagen));
+    return forkJoin(observablesSubidas).pipe(tap(nombresImagenes => console.log({ nombresImagenes })));
+  }
+
+  subirImagen(imagen: File): Observable<string> {
+    const fd = new FormData();
+    fd.append('file', imagen);
+    return this.clienteHttp.post<{ fileName: string }>(`${urlBase}/files/product`, fd).pipe(map(respuesta => respuesta.fileName));
   }
 
 }
