@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'menu-lateral',
   imports: [],
-  templateUrl: './menu.component.html',
+  templateUrl: './menu-lateral.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuComponent { }
+export class MenuLateralComponent { }
