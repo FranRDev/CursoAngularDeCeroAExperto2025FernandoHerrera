@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-deteccion-campos',
+  selector: 'app-deteccion-cambios',
   imports: [],
-  templateUrl: './deteccion-campos.component.html',
+  templateUrl: './deteccion-cambios.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeteccionCamposComponent { }
+export default class DeteccionCambiosComponent { }

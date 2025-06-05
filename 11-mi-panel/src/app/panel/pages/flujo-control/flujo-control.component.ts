@@ -6,4 +6,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './flujo-control.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlujoControlComponent { }
+export default class FlujoControlComponent { }

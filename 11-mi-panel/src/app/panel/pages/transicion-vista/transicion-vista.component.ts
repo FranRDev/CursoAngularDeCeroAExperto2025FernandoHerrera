@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-vistas-transiciones',
+  selector: 'transicion-vista',
   imports: [],
-  templateUrl: './vistas-transiciones.component.html',
+  templateUrl: './transicion-vista.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VistasTransicionesComponent { }
+export default class TransicionVistaComponent { }

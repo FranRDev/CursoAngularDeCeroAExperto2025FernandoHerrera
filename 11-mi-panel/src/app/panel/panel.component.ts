@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-panel',
-  imports: [],
-  templateUrl: './panel.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet],
+  selector: 'panel',
+  templateUrl: './panel.component.html'
 })
-export class PanelComponent { }
+export default class PanelComponent { }
