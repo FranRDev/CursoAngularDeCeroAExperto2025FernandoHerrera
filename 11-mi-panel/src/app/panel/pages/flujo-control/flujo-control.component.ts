@@ -12,6 +12,8 @@ export default class FlujoControlComponent {
 
   public mostrarContenido = signal(false);
   public grado = signal<Grado>('A');
+  public frameworks = signal(['Angular', 'Vue', 'Svelte', 'Qwik', 'React']);
+  public frameworks2 = signal([]);
 
   public conmutarContenido() {
     this.mostrarContenido.update(valor => !valor);

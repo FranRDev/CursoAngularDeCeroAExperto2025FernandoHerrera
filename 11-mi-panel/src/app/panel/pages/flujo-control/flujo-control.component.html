@@ -1,5 +1,6 @@
 <section class="grid grid-cols-1 md:grid-cols-2 gap-3">
 
+  <!-- @if -->
   <div class="bg-white rounded shadow p-10">
 
     <h2 class="text-2xl font-bold mb-5">if: {{ mostrarContenido() }}</h2>
@@ -15,6 +16,7 @@
 
   </div>
 
+  <!-- @switch -->
   <div class="bg-white rounded shadow p-10">
 
     <h2 class="text-3xl">{{ grado() }}</h2>
@@ -30,6 +32,38 @@
     <p>Suspenso</p>
     }
     }
+
+  </div>
+
+  <!-- @for -->
+  <div class="bg-white rounded shadow p-10">
+
+    <ul>
+      @for (framework of frameworks(); track framework; let indice = $index, primero = $first, ultimo = $last, impar =
+      $even, par = $odd, cantidad = $count) {
+
+      <li [class]="{
+        'bg-red-100': impar && !primero && !ultimo,
+        'bg-purple-100': par && !primero && !ultimo,
+        'bg-blue-100': primero || ultimo,
+        }">
+        {{ $index + 1 }}/{{ cantidad }} - {{ framework }}
+      </li>
+      }
+    </ul>
+
+  </div>
+
+  <div class="bg-white rounded shadow p-10">
+
+    <ul>
+      @for (framework of frameworks2(); track framework) {
+      <li>{{ framework }}</li>
+      }
+      @empty {
+      <li>No hay frameworks</li>
+      }
+    </ul>
 
   </div>
 
