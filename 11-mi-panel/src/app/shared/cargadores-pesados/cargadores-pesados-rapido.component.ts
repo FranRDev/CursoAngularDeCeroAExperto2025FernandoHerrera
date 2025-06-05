@@ -1,11 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cargadores-pesados-rapido',
-  imports: [],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1>Hola mundo</h1>
+    <section [ngClass]="['w-full h-[600px]', claseCss()]">
+      <ng-content />
+    </section>
   `
 })
-export class CargadoresPesadosRapidoComponent { }
+export class CargadoresPesadosRapidoComponent {
+
+  public claseCss = input.required<string>();
+
+  constructor() {
+    console.log('Cargador pesado rápido creado');
+  }
+
+}
