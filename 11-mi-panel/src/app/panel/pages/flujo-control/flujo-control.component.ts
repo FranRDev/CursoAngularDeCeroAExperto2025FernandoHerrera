@@ -1,9 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
-  selector: 'app-flujo-control',
-  imports: [],
-  templateUrl: './flujo-control.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [],
+  selector: 'flujo-control',
+  templateUrl: './flujo-control.component.html'
 })
-export default class FlujoControlComponent { }
+export default class FlujoControlComponent {
+
+  public mostrarContenido = signal(false);
+
+  public conmutarContenido() {
+    this.mostrarContenido.update(valor => !valor);
+  }
+
+}
