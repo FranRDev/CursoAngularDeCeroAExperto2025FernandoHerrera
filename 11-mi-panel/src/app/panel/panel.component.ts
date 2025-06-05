@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { MenuLateralComponent } from "../shared/menu-lateral/menu-lateral.component";
+import { MenuLateralComponent } from "@shared/menu-lateral/menu-lateral.component";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
