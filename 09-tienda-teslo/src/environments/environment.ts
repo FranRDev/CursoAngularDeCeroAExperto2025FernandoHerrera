@@ -1,3 +1,3 @@
 export const environment = {
-  urlBase: 'http://localhost:3000/api'
+  urlBase: 'https://nest-teslo-shop-jcer.onrender.com/api'
 };
