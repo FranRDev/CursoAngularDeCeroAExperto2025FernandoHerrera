@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
+import { TituloComponent } from '@shared/titulo/titulo.component';
+
 type Grado = 'A' | 'B' | 'F';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [TituloComponent],
   selector: 'flujo-control',
   templateUrl: './flujo-control.component.html'
 })
