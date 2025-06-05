@@ -1,19 +1,94 @@
 <titulo titulo="Opciones Diferir" />
 
 <section>
-
   <h1 class="text-xl">Interacciones</h1>
   <hr class="my-2">
 
   @defer (on interaction) {
   <cargadores-pesados-rapido claseCss="bg-blue-500 h-20">
-    <span>En interacción</span>
+    <span>Interacción placeholder</span>
+  </cargadores-pesados-rapido>
+  }
+  @placeholder {
+  <div class="w-full h-20 bg-purple-100">Clic en el div</div>
+  }
+</section>
+
+<section>
+  <hr class="my-2">
+
+  <button #btnInteraccion class="p-2 bg-blue-500 hover:gb-blue-700 transition-all rounded text-white my-2">
+    Cliquéame
+  </button>
+
+  @defer (on interaction(btnInteraccion)) {
+  <cargadores-pesados-rapido claseCss="bg-blue-500 h-20">
+    <span>Interacción botón</span>
   </cargadores-pesados-rapido>
   }
   @placeholder {
   <div class="w-full h-20 bg-purple-100">
-    Clic en el div
+    Clic en el botón
   </div>
   }
+</section>
 
+<section>
+  <hr class="my-2">
+
+  @defer (on hover) {
+  <cargadores-pesados-rapido claseCss="bg-blue-500 h-20">
+    <span>Sobreponer</span>
+  </cargadores-pesados-rapido>
+  }
+  @placeholder {
+  <div class="w-full h-20 bg-purple-100">
+    Pon el ratón encima
+  </div>
+  }
+</section>
+
+<section>
+  <hr class="my-2">
+
+  @defer (on immediate) {
+  <cargadores-pesados-rapido claseCss="bg-blue-500 h-20">
+    <span>Inmediato</span>
+  </cargadores-pesados-rapido>
+  }
+  @placeholder {
+  <div class="w-full h-20 bg-purple-100">
+    Clic en el botón
+  </div>
+  }
+</section>
+
+<section>
+  <hr class="my-2">
+
+  @defer (on timer(2000)) {
+  <cargadores-pesados-rapido claseCss="bg-green-500 h-20">
+    <span>Temporizador</span>
+  </cargadores-pesados-rapido>
+  }
+  @placeholder {
+  <div class="w-full h-20 bg-purple-100">
+    2 segundos
+  </div>
+  }
+</section>
+
+<section>
+  <hr class="my-2">
+
+  @defer (on hover; prefetch on idle) {
+  <cargadores-pesados-rapido claseCss="bg-green-500 h-20">
+    <span>Sobreponer Inactividad</span>
+  </cargadores-pesados-rapido>
+  }
+  @placeholder {
+  <div class="w-full h-20 bg-purple-100">
+    Sobreponer en inactividad
+  </div>
+  }
 </section>

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section [ngClass]="['w-full h-[600px]', claseCss()]">
+    <section [ngClass]="['w-full', claseCss()]">
       <ng-content />
     </section>
   `
