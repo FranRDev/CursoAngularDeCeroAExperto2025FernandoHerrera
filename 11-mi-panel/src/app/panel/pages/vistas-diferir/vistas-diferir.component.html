@@ -1,1 +1,24 @@
-<p>vistas-diferir works!</p>
+<section class="grid grid-cols-1">
+
+  @defer () {
+  <cargadores-pesados-lento claseCss="bg-blue-500" />
+  }
+  @placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  }
+
+  @defer () {
+  <cargadores-pesados-lento claseCss="bg-green-500" />
+  }
+  @placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  }
+
+  @defer () {
+  <cargadores-pesados-lento claseCss="bg-purple-500" />
+  }
+  @placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  }
+
+</section>

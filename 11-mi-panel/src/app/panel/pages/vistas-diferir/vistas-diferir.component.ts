@@ -1,9 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CargadoresPesadosLentoComponent } from '@shared/cargadores-pesados/cargadores-pesados-lento.component';
 
 @Component({
-  selector: 'app-vistas-diferir',
-  imports: [],
-  templateUrl: './vistas-diferir.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CargadoresPesadosLentoComponent],
+  selector: 'vistas-diferir',
+  templateUrl: './vistas-diferir.component.html'
 })
-export default class VistasDiferirComponent { }
+export default class VistasDiferirComponent {
+
+
+
+}
