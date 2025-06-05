@@ -1,24 +1,26 @@
+<titulo titulo="Vistas Diferir" />
+
 <section class="grid grid-cols-1">
 
   @defer () {
   <cargadores-pesados-lento claseCss="bg-blue-500" />
   }
   @placeholder {
-    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
   }
 
-  @defer () {
+  @defer (on idle) {
   <cargadores-pesados-lento claseCss="bg-green-500" />
   }
   @placeholder {
-    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
   }
 
-  @defer () {
+  @defer (on viewport) {
   <cargadores-pesados-lento claseCss="bg-purple-500" />
   }
   @placeholder {
-    <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
+  <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">Cargando...</p>
   }
 
 </section>
