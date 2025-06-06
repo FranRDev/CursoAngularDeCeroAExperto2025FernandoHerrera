@@ -1,1 +1,16 @@
-<p>usuarios works!</p>
+<titulo titulo="Usuarios" />
+
+<ul>
+  @for (usuario of servicioUsuarios.usuarios(); track usuario.id) {
+  <li class="flex items-center my-2 cursor-pointer">
+    <img [srcset]="usuario.avatar" [alt]="usuario.first_name" class="rounded w-14" />
+
+    <a [routerLink]="['/panel/usuario', usuario.id]" class="mx-5 hover:underline">
+      {{ usuario.first_name }} {{ usuario.last_name }}
+    </a>
+  </li>
+  }
+  @empty {
+    <h3>Espere por favor</h3>
+  }
+</ul>
