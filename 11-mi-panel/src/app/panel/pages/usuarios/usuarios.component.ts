@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { UsuariosService } from '@services/usuarios.service';
 import { TituloComponent } from '@shared/titulo/titulo.component';
+import { UsuariosService } from '@services/usuarios.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

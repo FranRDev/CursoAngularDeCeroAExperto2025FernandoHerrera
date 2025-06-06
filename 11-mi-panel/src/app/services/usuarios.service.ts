@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { User, UsersResponse } from '@interfaces/respuesta-reqres.interface';
-import { delay } from 'rxjs';
+import { delay, map } from 'rxjs';
+
+import type { User, UserResponse, UsersResponse } from '@interfaces/respuesta-reqres.interface';
 
 interface Estado {
   usuarios: User[];
@@ -22,13 +23,22 @@ export class UsuariosService {
   constructor() {
     this.clienteHttp
       .get<UsersResponse>('https://reqres.in/api/users', { headers: { 'x-api-key': 'reqres-free-v1' } })
-      .pipe(delay(1000))
+      .pipe(delay(1500))
       .subscribe(respuesta => {
         this.#estado.set({
           usuarios: respuesta.data,
           cargando: false
         });
       });
+  }
+
+  obtenerUsuarioPorId(id: string) {
+    return this.clienteHttp
+      .get<UserResponse>(`https://reqres.in/api/users/${id}`, { headers: { 'x-api-key': 'reqres-free-v1' } })
+      .pipe(
+        delay(1500),
+        map(respuesta => respuesta.data)
+      );
   }
 
 }
