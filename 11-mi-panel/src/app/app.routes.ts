@@ -21,9 +21,14 @@ export const routes: Routes = [
         loadComponent: () => import('./panel/pages/opciones-diferir/opciones-diferir.component')
       },
       {
-        path: 'transicion-vista',
-        title: 'Transición de Vista',
-        loadComponent: () => import('./panel/pages/transicion-vista/transicion-vista.component')
+        path: 'transicion-vista-1',
+        title: 'Transición de Vista 1',
+        loadComponent: () => import('./panel/pages/transicion-vista/transicion-vista-1.component')
+      },
+      {
+        path: 'transicion-vista-2',
+        title: 'Transición de Vista 2',
+        loadComponent: () => import('./panel/pages/transicion-vista/transicion-vista-2.component')
       },
       {
         path: 'usuario/:id',
