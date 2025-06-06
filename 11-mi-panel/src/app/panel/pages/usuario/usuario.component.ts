@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '@interfaces/respuesta-reqres.interface';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop'
 
-import { TituloComponent } from '@shared/titulo/titulo.component';
 import { switchMap } from 'rxjs';
+
+import { TituloComponent } from '@shared/titulo/titulo.component';
 import { UsuariosService } from '@services/usuarios.service';
 
 @Component({
-  selector: 'app-usuario',
+  selector: 'usuario',
   imports: [TituloComponent],
   template: `
-    <titulo titulo="Usuario" />
+    <titulo [titulo]="titulo()" />
 
     @if (usuario()) {
       <section>
@@ -36,6 +36,12 @@ export default class UsuarioComponent {
 
   // public usuario = signal<User | undefined>(undefined);
   public usuario = toSignal(this.rutaActiva.params.pipe(switchMap(({ id }) => this.servicioUsuario.obtenerUsuarioPorId(id))));
+
+  public titulo = computed(() => {
+    let titulo: string = 'Información del usuario';
+    if (!this.usuario()) return titulo;
+    return `${titulo}: ${this.usuario()!.first_name} ${this.usuario()!.last_name}`
+  });
 
   // constructor() {
   //   console.log(this.rutaActiva.params.subscribe(parametros => console.log(parametros)));
